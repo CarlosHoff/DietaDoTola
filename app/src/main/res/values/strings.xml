@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Dieta do Tola</string>
+    <string name="digite_seu_email">Digite seu e-mail</string>
+    <string name="digite_sua_senha">Digite sua senha</string>
+    <string name="login">LOGIN</string>
+    <string name="register">REGISTRAR</string>
+    <string name="forgot_password">Esqueceu a senha ? clica aqui !</string>
+    <string name="cadastre_se">CADASTRE-SE</string>
+    <string name="digite_seu_nome">Digite seu nome</string>
+    <string name="digite_seu_apelido">Digite seu apelido</string>
+    <string name="digite_seu_cpf">Digite seu CPF</string>
+    <string name="digite_seu_celular">Digite seu celular</string>
+    <string name="botao_cadastrar">CADASTRAR</string>
+</resources>

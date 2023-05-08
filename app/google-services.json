@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "674519842041",
+    "project_id": "dieta-do-tola",
+    "storage_bucket": "dieta-do-tola.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:674519842041:android:793e5c8527d49369917628",
+        "android_client_info": {
+          "package_name": "br.com.hoffmann.dietadotola"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "674519842041-d1m322jn9lld65t4m31p4bus54060cvg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCST6rr-PsC2Uqj504OXKd4-Mo28LkzqTs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "674519842041-d1m322jn9lld65t4m31p4bus54060cvg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
