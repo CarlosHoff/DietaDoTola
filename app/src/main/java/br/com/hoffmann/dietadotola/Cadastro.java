@@ -22,7 +22,7 @@ import java.util.Objects;
 
 public class Cadastro extends AppCompatActivity {
 
-    private Button botao_cadastro;
+    private Button botaoCadastro;
     private EditText nomeCadastro, emailCadastro, senhaCadastro;
     String usuarioID;
     String[] mensagens = {"É necessário preencher todos os campos obrigatórios",
@@ -33,10 +33,9 @@ public class Cadastro extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
 
-        Objects.requireNonNull(getSupportActionBar()).hide();
         iniciaComponentes();
 
-        botao_cadastro.setOnClickListener(view -> {
+        botaoCadastro.setOnClickListener(view -> {
 
             String nome = nomeCadastro.getText().toString();
             String email = emailCadastro.getText().toString();
@@ -94,7 +93,7 @@ public class Cadastro extends AppCompatActivity {
     }
 
     private void iniciaComponentes() {
-        botao_cadastro = findViewById(R.id.botao_cadastro);
+        botaoCadastro = findViewById(R.id.botao_cadastro);
         nomeCadastro = findViewById(R.id.nome_cadastro);
         emailCadastro = findViewById(R.id.email_cadastro);
         senhaCadastro = findViewById(R.id.senha_cadastro);

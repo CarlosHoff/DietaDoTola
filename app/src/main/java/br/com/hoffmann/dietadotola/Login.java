@@ -32,8 +32,6 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Objects.requireNonNull(getSupportActionBar()).hide();
-
         iniciarComponentes();
 
         botaoEntrar.setOnClickListener(view -> {
@@ -55,13 +53,11 @@ public class Login extends AppCompatActivity {
 
     private void logarUsuario(String email, String senha) {
 
-        String email1 = emailCadastro.getText().toString();
-        String senha1 = senhaCadastro.getText().toString();
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 progressBar.setVisibility(View.VISIBLE);
 
-                new Handler().postDelayed(this::telaPrincial, 2000);
+                new Handler().postDelayed(this::telaPrincipal, 2000);
             } else {
                 String erro;
                 try {
@@ -74,8 +70,8 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    private void telaPrincial() {
-        Intent intent = new Intent(Login.this, MainActivity.class);
+    private void telaPrincipal() {
+        Intent intent = new Intent(Login.this, Menu.class);
         startActivity(intent);
         finish();
     }
@@ -94,7 +90,7 @@ public class Login extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user != null) {
-            telaPrincial();
+            telaPrincipal();
         }
     }
 }

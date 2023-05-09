@@ -11,4 +11,7 @@
     <string name="digite_seu_cpf">Digite seu CPF</string>
     <string name="digite_seu_celular">Digite seu celular</string>
     <string name="botao_cadastrar">CADASTRAR</string>
+    <string name="perfil">Perfil</string>
+    <string name="monta_dieta">Calcula dieta</string>
+    <string name="dieta_pronta">Dietas</string>
 </resources>
