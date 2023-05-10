@@ -29,7 +29,7 @@
         style="@style/edittext_style"
         android:hint="@string/digite_sua_senha"
         android:drawableEnd="@drawable/ic_senha"
-        android:inputType="textEmailAddress"
+        android:inputType="numberPassword"
         android:background="@drawable/edittext_background"
         android:layout_marginTop="20dp"/>
 

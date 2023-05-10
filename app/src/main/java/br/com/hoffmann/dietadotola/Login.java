@@ -21,8 +21,9 @@ public class Login extends AppCompatActivity {
 
     private TextView telaCadastro;
     private Button botaoEntrar;
-    private EditText emailCadastro, senhaCadastro;
+    private EditText emailLogin, senhaLogin;
     private ProgressBar progressBar;
+    private FirebaseAuth auth;
 
     String[] mensagens = {"É necessário preencher todos os campos obrigatórios",
             "Login efetuado com sucesso."};
@@ -33,10 +34,11 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         iniciarComponentes();
+        auth = FirebaseAuth.getInstance();
 
         botaoEntrar.setOnClickListener(view -> {
-            String email = emailCadastro.getText().toString();
-            String senha = senhaCadastro.getText().toString();
+            String email = emailLogin.getText().toString();
+            String senha = senhaLogin.getText().toString();
 
             if (email.isEmpty() || senha.isEmpty()) {
                 Toast.makeText(Login.this, mensagens[0], Toast.LENGTH_LONG).show();
@@ -53,7 +55,7 @@ public class Login extends AppCompatActivity {
 
     private void logarUsuario(String email, String senha) {
 
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, senha).addOnCompleteListener(task -> {
+        auth.signInWithEmailAndPassword(email, senha).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 progressBar.setVisibility(View.VISIBLE);
 
@@ -77,8 +79,8 @@ public class Login extends AppCompatActivity {
     }
 
     private void iniciarComponentes() {
-        emailCadastro = findViewById(R.id.email_login);
-        senhaCadastro = findViewById(R.id.senha_login);
+        emailLogin = findViewById(R.id.email_login);
+        senhaLogin = findViewById(R.id.senha_login);
         botaoEntrar = findViewById(R.id.botao_entrar);
         telaCadastro = findViewById(R.id.texto_cadastro);
         progressBar = findViewById(R.id.progress_bar);
@@ -87,8 +89,7 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
+        FirebaseUser user = auth.getCurrentUser();
         if (user != null) {
             telaPrincipal();
         }

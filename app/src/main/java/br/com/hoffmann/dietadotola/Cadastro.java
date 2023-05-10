@@ -13,20 +13,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class Cadastro extends AppCompatActivity {
 
     private Button botaoCadastro;
     private EditText nomeCadastro, emailCadastro, senhaCadastro;
-    String usuarioID;
     String[] mensagens = {"É necessário preencher todos os campos obrigatórios",
             "Cadastro realizado com sucesso."};
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +32,7 @@ public class Cadastro extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro);
 
         iniciaComponentes();
+        auth = FirebaseAuth.getInstance();
 
         botaoCadastro.setOnClickListener(view -> {
 
@@ -44,22 +43,20 @@ public class Cadastro extends AppCompatActivity {
             if (nome.isEmpty() || email.isEmpty() || senha.isEmpty()) {
                 Toast.makeText(Cadastro.this, mensagens[0], Toast.LENGTH_LONG).show();
             } else {
-                cadastrarUsuario();
+                cadastrarUsuario(nome, email, senha);
             }
         });
     }
 
-    private void cadastrarUsuario() {
-        String email = emailCadastro.getText().toString();
-        String senha = senhaCadastro.getText().toString();
+    private void cadastrarUsuario(String nome, String email, String senha) {
 
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, senha).addOnCompleteListener(task -> {
+        auth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
 
-                salvarDadosUsuario();
+                salvarDadosUsuario(nome);
 
                 Toast.makeText(Cadastro.this, mensagens[1], Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Cadastro.this, Cadastro.class);
+                Intent intent = new Intent(Cadastro.this, Login.class);
                 startActivity(intent);
             } else {
                 String erro;
@@ -79,17 +76,17 @@ public class Cadastro extends AppCompatActivity {
         });
     }
 
-    private void salvarDadosUsuario() {
-        String nome = nomeCadastro.getText().toString();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private void salvarDadosUsuario(String nome) {
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(nome)
+                .build();
 
-        Map<String, Object> usuarios = new HashMap<>();
-        usuarios.put("nome", nome);
-
-        usuarioID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-
-        DocumentReference documentReference = db.collection("Usuarios").document(usuarioID);
-        documentReference.set(usuarios).addOnSuccessListener(unused -> Log.d("db", "Sucesso ao salvar os dados")).addOnFailureListener(e -> Log.d("db_error", "Erro ao salvar os dados" + e.getMessage()));
+        FirebaseUser user = auth.getCurrentUser();
+        Objects.requireNonNull(user).updateProfile(profileUpdates).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Log.d("Nome update", "nome salvo");
+            }
+        });
     }
 
     private void iniciaComponentes() {

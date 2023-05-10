@@ -18,7 +18,7 @@ import br.com.hoffmann.dietadotola.viewmodel.PerfilViewModel;
 
 public class Profile extends Fragment {
 
-    private TextView name, emailScreen;
+    private TextView nameScreen, emailScreen;
 
     public Profile() {
     }
@@ -36,15 +36,15 @@ public class Profile extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         startComponents(view);
 
-//        PerfilViewModel perfilViewModel = new ViewModelProvider(this).get(PerfilViewModel.class);
-//        perfilViewModel.loadProfile().observe(getViewLifecycleOwner(), profileResponse -> {
-//            if (profileResponse != null) {
-//                ProfileResponse user = new ProfileResponse();
-//                user.setNome(Objects.requireNonNull(profileResponse.getNome()));
-//                user.setEmail(Objects.requireNonNull(profileResponse.getEmail()));
-//                fillScreen(user);
-//            }
-//        });
+        PerfilViewModel perfilViewModel = new ViewModelProvider(this).get(PerfilViewModel.class);
+        perfilViewModel.loadProfile().observe(getViewLifecycleOwner(), profileResponse -> {
+            if (profileResponse != null) {
+                ProfileResponse user = new ProfileResponse();
+                user.setNome(Objects.requireNonNull(profileResponse.getNome()));
+                user.setEmail(Objects.requireNonNull(profileResponse.getEmail()));
+                fillScreen(user);
+            }
+        });
         return view;
     }
 
@@ -55,12 +55,13 @@ public class Profile extends Fragment {
     }
 
     private void startComponents(View view) {
-        name = view.findViewById(R.id.nome_perfil);
+        nameScreen = view.findViewById(R.id.nome_perfil);
         emailScreen = view.findViewById(R.id.email_perfil);
+        String teste;
     }
 
     private void fillScreen(ProfileResponse profileResponse) {
-        name.setText(profileResponse.getNome());
+        nameScreen.setText(profileResponse.getNome());
         emailScreen.setText(profileResponse.getEmail());
     }
 
