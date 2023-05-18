@@ -17,23 +17,21 @@
     <string name="preencha_campos">PREENCHA OS CAMPOS</string>
     <string name="masculino">MASCULINO</string>
     <string name="feminino">FEMININO</string>
-    <string name="idade">Idade</string>
-    <string name="altura">Altura em centimetros</string>
-    <string name="peso">Peso</string>
-    <string name="resultado">TDEE</string>
+    <string name="idade">IDADE</string>
+    <string name="altura">ALTURA EM CENTIMETROS</string>
+    <string name="peso">PESO</string>
+    <string name="resultado">CALCULAR TDEE</string>
     <string name="emagrecimento">EMAGRECIMENTO</string>
     <string name="ganhoDePeso">Ganho de Peso</string>
-    <string name="objetivo">Qual seu objetivo ?</string>
+    <string name="objetivo">QUAL SEU OBJETIVO ?</string>
     <string name="proximaPagina"><![CDATA[Proxima >>]]></string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="escolha_alimentos">ESCOLHA OS ALIMENTOS</string>
-    <string name="carboidratos">Carboidratos</string>
-    <string name="proteinas">Proteinas</string>
-    <string name="atividade">Pratica alguma atividade ?</string>
+    <string name="carboidratos">CARBOIDRATOS</string>
+    <string name="proteinas">PROTEINAS</string>
+    <string name="atividade">PRATICA ALGUMA ATIVIDADE ?</string>
     <string name="atividade_grau">1-Sedentário   2-Leve   3-Moderado   4-Muito ativo   5-Extremamente ativo</string>
-    <string name="estado_atual">Seu estado atual</string>
+    <string name="estado_atual">SEU ESTADO ATUAL</string>
     <string name="estado_atual_grau">1-Magro   2-Atlético   3-Acima do peso   4-Obeso   </string>
-    <string name="qtd_refeicoes">Quantas refeições ao dia ?</string>
-    <string name="frutas">Frutas</string>
+    <string name="qtd_refeicoes">QUANTAS REFEIÇOES AO DIA ?</string>
+    <string name="frutas">FRUTAS</string>
 </resources>

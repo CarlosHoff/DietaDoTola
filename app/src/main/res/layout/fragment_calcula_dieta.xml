@@ -231,12 +231,13 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="8dp"
+                android:visibility="invisible"
                 android:background="@drawable/shape_botao_selecionado"
                 android:text="@string/resultado"
                 android:fontFamily="@font/font_dietola"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/resultado"

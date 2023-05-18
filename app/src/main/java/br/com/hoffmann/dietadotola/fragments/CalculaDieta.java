@@ -133,6 +133,9 @@ public class CalculaDieta extends Fragment {
             @Override
             public void onStopTrackingTouch(@NonNull Slider slider) {
                 estadoAtual = slider.getValue();
+                if (estadoAtual != 0) {
+                    resultado.setVisibility(View.VISIBLE);
+                }
             }
         });
 
