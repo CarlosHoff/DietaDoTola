@@ -3,12 +3,312 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/fragment_calcula_dieta"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.CalculaDieta">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/gradient_background">
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient_background"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="-121dp">
+
+        <TextView
+            android:id="@+id/text_titulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/preencha_campos"
+            android:fontFamily="@font/font_dietola"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/toggleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/shape_botao"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_titulo"
+            app:singleSelection="true">
+
+            <Button
+                android:id="@+id/masculino"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/masculino"
+                android:fontFamily="@font/font_dietola"/>
+
+            <Button
+                android:id="@+id/feminino"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/feminino"
+                android:fontFamily="@font/font_dietola"/>
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        <TextView
+            android:id="@+id/text_idade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/idade"
+            android:fontFamily="@font/font_dietola"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toggleButton" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_idade"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:stepSize="1"
+            android:valueFrom="10"
+            android:valueTo="80"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_idade"
+            app:thumbColor="@color/white"
+            app:thumbRadius="10dp"
+            app:trackColor="@color/white" />
+
+        <TextView
+            android:id="@+id/text_altura"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/altura"
+            android:fontFamily="@font/font_dietola"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/slider_idade" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_altura"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:stepSize="1"
+            android:valueFrom="20"
+            android:valueTo="300"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_altura"
+            app:thumbColor="@color/white"
+            app:thumbRadius="10dp"
+            app:trackColor="@color/white" />
+
+        <TextView
+            android:id="@+id/text_peso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/peso"
+            android:fontFamily="@font/font_dietola"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/slider_altura" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_peso"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:stepSize="1"
+            android:valueFrom="20"
+            android:valueTo="300"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_peso"
+            app:thumbColor="@color/white"
+            app:thumbRadius="10dp"
+            app:trackColor="@color/white" />
+
+        <TextView
+            android:id="@+id/text_atividade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/atividade"
+            android:fontFamily="@font/font_dietola"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/slider_peso" />
+
+        <TextView
+            android:id="@+id/text_atividade_grau"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/atividade_grau"
+            android:fontFamily="@font/font_dietola"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_atividade" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_grau_atividade"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:stepSize="1"
+            android:valueFrom="1"
+            android:valueTo="5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_atividade_grau"
+            app:thumbColor="@color/white"
+            app:thumbRadius="10dp"
+            app:trackColor="@color/white" />
+
+        <TextView
+            android:id="@+id/text_estado_atual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/estado_atual"
+            android:fontFamily="@font/font_dietola"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/slider_grau_atividade" />
+
+        <TextView
+            android:id="@+id/text_estado_atual_grau"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/estado_atual_grau"
+            android:fontFamily="@font/font_dietola"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_estado_atual" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_estado_atual"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:stepSize="1"
+            android:valueFrom="1"
+            android:valueTo="4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_estado_atual_grau"
+            app:thumbColor="@color/white"
+            app:thumbRadius="10dp"
+            app:trackColor="@color/white" />
+
+        <LinearLayout
+            android:id="@+id/linearLayoutValores"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/slider_estado_atual">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/botao_resultado"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/shape_botao_selecionado"
+                android:text="@string/resultado"
+                android:fontFamily="@font/font_dietola"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/resultado"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="30dp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:fontFamily="@font/font_dietola"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_objetivo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/objetivo"
+            android:fontFamily="@font/font_dietola"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutValores" />
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/toggleButtonObjetivo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/shape_botao"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_objetivo"
+            app:singleSelection="true">
+
+            <Button
+                android:id="@+id/emagrecimento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/emagrecimento"
+                android:fontFamily="@font/font_dietola"/>
+
+            <Button
+                android:id="@+id/ganhoDePeso"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ganhoDePeso"
+                android:fontFamily="@font/font_dietola"/>
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/proximaPagina"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:visibility="invisible"
+            android:textColor="@drawable/text_selector"
+            android:background="@drawable/color_button2_selector"
+            android:padding="5dp"
+            android:text="@string/proximaPagina"
+            android:fontFamily="@font/font_dietola"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/toggleButtonObjetivo"
+            app:layout_constraintStart_toStartOf="@id/toggleButtonObjetivo"
+            app:layout_constraintTop_toBottomOf="@id/toggleButtonObjetivo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </FrameLayout>

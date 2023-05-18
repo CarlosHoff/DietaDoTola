@@ -17,6 +17,15 @@
         android:theme="@style/Theme.DietaDoTola"
         tools:targetApi="31">
         <activity
+            android:name=".fragments.Profile"
+            android:exported="false" />
+        <activity
+            android:name=".fragments.Dietas"
+            android:exported="false" />
+        <activity
+            android:name=".fragments.CalculaDieta"
+            android:exported="false" />
+        <activity
             android:name=".Menu"
             android:exported="false" />
         <activity

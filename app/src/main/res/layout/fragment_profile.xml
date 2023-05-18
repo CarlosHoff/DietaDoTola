@@ -69,6 +69,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textColor="@color/white"
+            android:fontFamily="@font/font_dietola"
             android:layout_marginTop="14dp"
             android:layout_marginStart="10dp"
             app:layout_constraintStart_toEndOf="@id/img_user"
@@ -80,6 +81,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textColor="@color/white"
+            android:fontFamily="@font/font_dietola"
             android:layout_marginTop="14dp"
             android:layout_marginStart="10dp"
             app:layout_constraintStart_toEndOf="@id/img_email"
@@ -91,12 +93,11 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textColor="@color/white"
+            android:fontFamily="@font/font_dietola"
             android:layout_marginTop="20dp"
             android:layout_marginStart="10dp"
             app:layout_constraintStart_toEndOf="@id/img_celular"
             app:layout_constraintTop_toTopOf="@id/img_celular"/>
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
