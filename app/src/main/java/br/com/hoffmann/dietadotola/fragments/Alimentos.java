@@ -4,9 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -19,16 +22,21 @@ import br.com.hoffmann.dietadotola.R;
 import br.com.hoffmann.dietadotola.domain.response.auxiliar.Carboidratos;
 import br.com.hoffmann.dietadotola.domain.response.auxiliar.Frutas;
 import br.com.hoffmann.dietadotola.domain.response.auxiliar.Proteinas;
+import br.com.hoffmann.dietadotola.utils.Utilitarios;
 
 public class Alimentos extends Fragment {
 
     private static final String TAXA_BASAL_FINAL = "taxaBasalFinal";
     private static final String PROTEINA = "proteina";
-    private static final String CARBOIDRATO = "carboidratro";
-
-    private int taxaBasalFinal, proteina, carboidratro, qtdRefeicoes, proteinaPorRefeicao, carboidratroPorRefeicao;
+    private static final String CARBOIDRATO = "carboidrato";
+    private int taxaBasalFinal, proteina, carboidrato, qtdRefeicoes, protRefeicao, carbRefeicao;
     private ChipGroup chipGroupCarbo, chipGroupProteina, chipGroupFruta;
     private Slider refeicoesSlider;
+    private Button montarDieta;
+    Utilitarios utils = new Utilitarios();
+    List<Carboidratos> carbosSelecionados = new ArrayList<>();
+    List<Proteinas> proteinasSelecionadas = new ArrayList<>();
+    List<Frutas> frutasSelecionadas = new ArrayList<>();
 
     public Alimentos() {
     }
@@ -39,7 +47,7 @@ public class Alimentos extends Fragment {
         if (getArguments() != null) {
             taxaBasalFinal = getArguments().getInt(TAXA_BASAL_FINAL);
             proteina = getArguments().getInt(PROTEINA);
-            carboidratro = getArguments().getInt(CARBOIDRATO);
+            carboidrato = getArguments().getInt(CARBOIDRATO);
         }
     }
 
@@ -60,34 +68,73 @@ public class Alimentos extends Fragment {
             @Override
             public void onStopTrackingTouch(@NonNull Slider slider) {
                 qtdRefeicoes = (int) slider.getValue();
+                alimentosPorRefeicao(carboidrato, proteina, qtdRefeicoes);
+                pegaListaDeCarbos();
+                pegaListaDeProteinas();
+                pegaListaDeFrutas();
+                montarDieta.setVisibility(View.VISIBLE);
             }
         });
 
-        //alimentosPorRefeicao(carboidratro, proteina, qtdRefeicoes);
+        montarDieta.setOnClickListener(v -> {
+            MontaDieta montaDieta = new MontaDieta();
+            Bundle args = new Bundle();
+
+            args.putParcelableArrayList("carbosSelecionados", new ArrayList<>(carbosSelecionados));
+            args.putParcelableArrayList("proteinasSelecionadas", new ArrayList<>(proteinasSelecionadas));
+            args.putParcelableArrayList("frutasSelecionadas", new ArrayList<>(frutasSelecionadas));
+            args.putInt("qtdRefeicoes", qtdRefeicoes);
+            args.putInt("protRefeicao", protRefeicao);
+            args.putInt("carbRefeicao", carbRefeicao);
+            args.putInt("carbRefeicao", carbRefeicao);
+            montaDieta.setArguments(args);
+            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_alimentos, montaDieta);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        });
 
         return view;
     }
 
+    private void pegaListaDeCarbos() {
+        List<Integer> checkedChipIds = chipGroupCarbo.getCheckedChipIds();
+        for (int chipId : checkedChipIds) {
+            Chip chip = chipGroupCarbo.findViewById(chipId);
+            Carboidratos carboidratos = new Carboidratos();
+            carboidratos.setNome(chip.getText().toString());
+            carbosSelecionados.add(carboidratos);
+        }
+    }
+
+    private void pegaListaDeProteinas() {
+        List<Integer> checkedChipIds = chipGroupProteina.getCheckedChipIds();
+        for (int chipId : checkedChipIds) {
+            Chip chip = chipGroupProteina.findViewById(chipId);
+            Proteinas proteinas = new Proteinas();
+            proteinas.setNome(chip.getText().toString());
+            proteinasSelecionadas.add(proteinas);
+        }
+    }
+
+    private void pegaListaDeFrutas() {
+        List<Integer> checkedChipIds = chipGroupFruta.getCheckedChipIds();
+        for (int chipId : checkedChipIds) {
+            Chip chip = chipGroupFruta.findViewById(chipId);
+            Frutas frutas = new Frutas();
+            frutas.setNome(chip.getText().toString());
+            frutasSelecionadas.add(frutas);
+        }
+    }
+
     private void alimentosPorRefeicao(int carboidratro, int proteina, int qtdRefeicoes) {
-        proteinaPorRefeicao = proteina / qtdRefeicoes;
-        carboidratroPorRefeicao = carboidratro / qtdRefeicoes;
+        protRefeicao = proteina / qtdRefeicoes;
+        carbRefeicao = carboidratro / qtdRefeicoes;
     }
 
     private void CriaChipGroups() {
-        List<Carboidratos> listaDeCarboidratos = new ArrayList<>();
-        Carboidratos carboidrato1 = new Carboidratos("Arroz", 130, 30);
-        Carboidratos carboidrato2 = new Carboidratos("Macarrão", 157, 30);
-        Carboidratos carboidrato3 = new Carboidratos("Batata doce", 86, 22);
-        Carboidratos carboidrato4 = new Carboidratos("Batata inglesa", 87, 18);
-        Carboidratos carboidrato5 = new Carboidratos("Polenta", 94, 25);
-
-
-        listaDeCarboidratos.add(carboidrato1);
-        listaDeCarboidratos.add(carboidrato2);
-        listaDeCarboidratos.add(carboidrato3);
-        listaDeCarboidratos.add(carboidrato4);
-        listaDeCarboidratos.add(carboidrato5);
-
+        List<Carboidratos> listaDeCarboidratos = utils.createCarboList();
 
         for (Carboidratos valor : listaDeCarboidratos) {
             Chip chip = new Chip(getContext());
@@ -97,22 +144,7 @@ public class Alimentos extends Fragment {
             chipGroupCarbo.addView(chip);
         }
 
-        List<Proteinas> listaDeProteinas = new ArrayList<>();
-        Proteinas proteina1 = new Proteinas("Frango", 165, 28);
-        Proteinas proteina2 = new Proteinas("Carne", 163, 28);
-        Proteinas proteina3 = new Proteinas("Ovo", 78, 7);
-        Proteinas proteina4 = new Proteinas("Atum", 116, 25);
-        Proteinas proteina5 = new Proteinas("Peixe", 96, 20);
-        Proteinas proteina6 = new Proteinas("Iogurte", 80, 5);
-        Proteinas proteina7 = new Proteinas("Leite", 70, 3);
-
-        listaDeProteinas.add(proteina1);
-        listaDeProteinas.add(proteina2);
-        listaDeProteinas.add(proteina3);
-        listaDeProteinas.add(proteina4);
-        listaDeProteinas.add(proteina5);
-        listaDeProteinas.add(proteina6);
-        listaDeProteinas.add(proteina7);
+        List<Proteinas> listaDeProteinas = utils.createProteinaList();
 
         for (Proteinas valor : listaDeProteinas) {
             Chip chip = new Chip(getContext());
@@ -122,24 +154,7 @@ public class Alimentos extends Fragment {
             chipGroupProteina.addView(chip);
         }
 
-        List<Frutas> listaDeFrutas = new ArrayList<>();
-        Frutas fruta1 = new Frutas("Abacaxi", 54, 13);
-        Frutas fruta2 = new Frutas("Maça", 52, 14);
-        Frutas fruta3 = new Frutas("Pera", 57, 15);
-        Frutas fruta4 = new Frutas("Mamão", 43, 11);
-        Frutas fruta5 = new Frutas("Melancia", 24, 8);
-        Frutas fruta6 = new Frutas("Morango", 32, 7);
-        Frutas fruta7 = new Frutas("Banana", 105, 23);
-        Frutas fruta8 = new Frutas("Abacate", 160, 9);
-
-        listaDeFrutas.add(fruta1);
-        listaDeFrutas.add(fruta2);
-        listaDeFrutas.add(fruta3);
-        listaDeFrutas.add(fruta4);
-        listaDeFrutas.add(fruta5);
-        listaDeFrutas.add(fruta6);
-        listaDeFrutas.add(fruta7);
-        listaDeFrutas.add(fruta8);
+        List<Frutas> listaDeFrutas = utils.createFruitList();
 
         for (Frutas valor : listaDeFrutas) {
             Chip chip = new Chip(getContext());
@@ -155,5 +170,6 @@ public class Alimentos extends Fragment {
         chipGroupProteina = view.findViewById(R.id.chip_group_proteinas);
         chipGroupFruta = view.findViewById(R.id.chip_group_frutas);
         refeicoesSlider = view.findViewById(R.id.slider_qtd_refeicoes);
+        montarDieta = view.findViewById(R.id.irPaginaDieta);
     }
 }

@@ -122,5 +122,21 @@
             app:thumbRadius="10dp"
             app:trackColor="@color/white" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/irPaginaDieta"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:visibility="invisible"
+            android:textColor="@drawable/text_selector"
+            android:background="@drawable/color_button2_selector"
+            android:padding="5dp"
+            android:text="@string/gerar_dieta"
+            android:fontFamily="@font/font_dietola"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/slider_qtd_refeicoes"
+            app:layout_constraintStart_toStartOf="@id/slider_qtd_refeicoes"
+            app:layout_constraintTop_toBottomOf="@id/slider_qtd_refeicoes" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

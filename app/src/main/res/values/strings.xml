@@ -24,7 +24,7 @@
     <string name="emagrecimento">EMAGRECIMENTO</string>
     <string name="ganhoDePeso">Ganho de Peso</string>
     <string name="objetivo">QUAL SEU OBJETIVO ?</string>
-    <string name="proximaPagina"><![CDATA[Proxima >>]]></string>
+    <string name="proximaPagina">PROXIMA</string>
     <string name="escolha_alimentos">ESCOLHA OS ALIMENTOS</string>
     <string name="carboidratos">CARBOIDRATOS</string>
     <string name="proteinas">PROTEINAS</string>
@@ -34,4 +34,7 @@
     <string name="estado_atual_grau">1-Magro   2-Atlético   3-Acima do peso   4-Obeso   </string>
     <string name="qtd_refeicoes">QUANTAS REFEIÇOES AO DIA ?</string>
     <string name="frutas">FRUTAS</string>
+    <string name="gerar_dieta">MONTAR DIETA</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

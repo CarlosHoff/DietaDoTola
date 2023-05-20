@@ -22,7 +22,7 @@ public class CalculaDieta extends Fragment {
 
     private Button masc, fem, perdePeso, resultado, ganhaPeso, proximaPagina;
     private int idade, taxaBasalFinal, tdee;
-    private double altura, peso, grauAtividade, estadoAtual, proteina, carboidratro;
+    private double altura, peso, grauAtividade, estadoAtual, proteina, carboidrato;
     private String sexo;
     private TextView resultadoCalculoBasal, objetivoText;
     private MaterialButtonToggleGroup toggleButtonObjetivo, toggleGroup;
@@ -83,7 +83,7 @@ public class CalculaDieta extends Fragment {
             Bundle args = new Bundle();
             args.putInt("taxaBasalFinal", taxaBasalFinal);
             args.putInt("proteina", (int) proteina);
-            args.putInt("carboidratro", (int) carboidratro);
+            args.putInt("carboidrato", (int) carboidrato);
             alimentos.setArguments(args);
             FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -185,16 +185,16 @@ public class CalculaDieta extends Fragment {
     private void calculaCarboidrato() {
         switch ((int) estadoAtual) {
             case 1:
-                carboidratro = (tdee * 0.55) / 4;
+                carboidrato = (tdee * 0.55) / 4;
                 break;
             case 2:
-                carboidratro = (tdee * 0.48) / 4;
+                carboidrato = (tdee * 0.48) / 4;
                 break;
             case 3:
-                carboidratro = (tdee * 0.53) / 4;
+                carboidrato = (tdee * 0.53) / 4;
                 break;
             case 4:
-                carboidratro = (tdee * 0.58) / 4;
+                carboidrato = (tdee * 0.58) / 4;
                 break;
             default:
                 Log.d("switch_Carboidrato", "Erro no metodo calculaCarboidrato.");
