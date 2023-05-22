@@ -11,38 +11,36 @@ public class Utilitarios {
     public List<Carboidratos> createCarboList() {
         List<Carboidratos> listaDeCarboidratos = new ArrayList<>();
 
-        Carboidratos carboidrato1 = new Carboidratos("Arroz", 130, 30);
-        Carboidratos carboidrato2 = new Carboidratos("Macarrão", 157, 30);
-        Carboidratos carboidrato3 = new Carboidratos("Batata doce", 86, 22);
-        Carboidratos carboidrato4 = new Carboidratos("Batata inglesa", 87, 18);
-        Carboidratos carboidrato5 = new Carboidratos("Polenta", 94, 25);
+        Carboidratos arroz = new Carboidratos("Arroz", 130, 30);
+        Carboidratos macarrao = new Carboidratos("Macarrão", 157, 30);
+        Carboidratos batataDoce = new Carboidratos("Batata doce", 86, 22);
+        Carboidratos batataInglesa = new Carboidratos("Batata inglesa", 87, 18);
+        Carboidratos mandioca = new Carboidratos("Mandioca", 125, 6);
+        Carboidratos aveia = new Carboidratos("Aveia", 394, 66);
 
-        listaDeCarboidratos.add(carboidrato1);
-        listaDeCarboidratos.add(carboidrato2);
-        listaDeCarboidratos.add(carboidrato3);
-        listaDeCarboidratos.add(carboidrato4);
-        listaDeCarboidratos.add(carboidrato5);
+        listaDeCarboidratos.add(arroz);
+        listaDeCarboidratos.add(macarrao);
+        listaDeCarboidratos.add(batataDoce);
+        listaDeCarboidratos.add(batataInglesa);
+        listaDeCarboidratos.add(mandioca);
+        listaDeCarboidratos.add(aveia);
 
         return listaDeCarboidratos;
     }
 
     public List<Proteinas> createProteinaList() {
         List<Proteinas> listaDeProteinas = new ArrayList<>();
-        Proteinas proteina1 = new Proteinas("Frango", 165, 28);
-        Proteinas proteina2 = new Proteinas("Carne", 163, 28);
-        Proteinas proteina3 = new Proteinas("Ovo", 78, 7);
-        Proteinas proteina4 = new Proteinas("Atum", 116, 25);
-        Proteinas proteina5 = new Proteinas("Peixe", 96, 20);
-        Proteinas proteina6 = new Proteinas("Iogurte", 80, 5);
-        Proteinas proteina7 = new Proteinas("Leite", 70, 3);
+        Proteinas frango = new Proteinas("Frango", 165, 28);
+        Proteinas carne = new Proteinas("Carne", 163, 28);
+        Proteinas ovo = new Proteinas("Ovo", 78, 7);
+        Proteinas atum = new Proteinas("Atum", 116, 25);
+        Proteinas peixe = new Proteinas("Peixe", 96, 20);
 
-        listaDeProteinas.add(proteina1);
-        listaDeProteinas.add(proteina2);
-        listaDeProteinas.add(proteina3);
-        listaDeProteinas.add(proteina4);
-        listaDeProteinas.add(proteina5);
-        listaDeProteinas.add(proteina6);
-        listaDeProteinas.add(proteina7);
+        listaDeProteinas.add(frango);
+        listaDeProteinas.add(carne);
+        listaDeProteinas.add(ovo);
+        listaDeProteinas.add(atum);
+        listaDeProteinas.add(peixe);
 
         return listaDeProteinas;
     }
@@ -68,5 +66,9 @@ public class Utilitarios {
         listaDeFrutas.add(fruta8);
 
         return listaDeFrutas;
+    }
+
+    public double calculaGramasPorRefeicao(double carbRefeicao, double qtdPorporcao) {
+        return (carbRefeicao / qtdPorporcao) * 100.0;
     }
 }

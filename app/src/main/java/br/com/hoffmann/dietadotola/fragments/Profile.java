@@ -57,7 +57,6 @@ public class Profile extends Fragment {
     private void startComponents(View view) {
         nameScreen = view.findViewById(R.id.nome_perfil);
         emailScreen = view.findViewById(R.id.email_perfil);
-        String teste;
     }
 
     private void fillScreen(ProfileResponse profileResponse) {

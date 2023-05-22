@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:layout_marginBottom="2dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient_background"
+        android:layout_margin="2dp">
+
+        <TextView
+            android:id="@+id/texto_refeicao"
+            style="@style/texto_lista_dieta"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/texto_carboidrato"
+            style="@style/texto_lista_dieta"
+            android:layout_below="@+id/texto_refeicao"
+            android:layout_alignStart="@id/texto_refeicao"
+            android:layout_alignEnd="@id/texto_refeicao"/>
+
+        <TextView
+            android:id="@+id/texto_proteina"
+            style="@style/texto_lista_dieta"
+            android:layout_below="@+id/texto_carboidrato"
+            android:layout_alignStart="@id/texto_carboidrato"
+            android:layout_alignEnd="@id/texto_carboidrato"/>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
