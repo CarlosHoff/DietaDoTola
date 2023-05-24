@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -152,14 +153,32 @@ public class CalculaDieta extends Fragment {
 
         resultado.setOnClickListener(v -> {
             tdee = calcularTDEE(peso, altura, idade, sexo, grauAtividade);
-            resultadoCalculoBasal.setText(tdee + " Kcal");
+            resultadoCalculoBasal.setText(String.format("%s Kcal", tdee));
             if (resultadoCalculoBasal.getText() != null) {
                 objetivoText.setVisibility(View.VISIBLE);
                 toggleButtonObjetivo.setVisibility(View.VISIBLE);
+
             }
         });
 
         return view;
+    }
+
+    private boolean validaCampos() {
+        if (sexo.isEmpty()) {
+            Toast.makeText(getContext(), "Preencha sua sexualidade", Toast.LENGTH_SHORT).show();
+        } else if (idade == 0) {
+            Toast.makeText(getContext(), "Preencha sua idade", Toast.LENGTH_SHORT).show();
+        } else if (altura == 0) {
+            Toast.makeText(getContext(), "Preencha sua altura", Toast.LENGTH_SHORT).show();
+        } else if (peso == 0) {
+            Toast.makeText(getContext(), "Preencha seu peso", Toast.LENGTH_SHORT).show();
+        } else if (grauAtividade == 0) {
+            Toast.makeText(getContext(), "Preencha seu nivel de atividade-física", Toast.LENGTH_SHORT).show();
+        } else if (estadoAtual == 0) {
+            Toast.makeText(getContext(), "Preencha seu estado-atual", Toast.LENGTH_SHORT).show();
+        }
+        return false;
     }
 
     private void calculaProteina() {

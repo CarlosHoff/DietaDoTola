@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.com.hoffmann.dietadotola.domain.response.auxiliar.Carboidratos;
 import br.com.hoffmann.dietadotola.domain.response.auxiliar.Frutas;
+import br.com.hoffmann.dietadotola.domain.response.auxiliar.Vegetais;
 import br.com.hoffmann.dietadotola.domain.response.auxiliar.Proteinas;
 
 public class Utilitarios {
@@ -43,6 +44,30 @@ public class Utilitarios {
         listaDeProteinas.add(peixe);
 
         return listaDeProteinas;
+    }
+
+    public List<Vegetais> createVegetaisList(){
+        List<Vegetais> listaDeVegetais = new ArrayList<>();
+
+        Vegetais pepino = new Vegetais("Pepino", 12, 2, 0);
+        Vegetais cenoura = new Vegetais("Cenoura", 41, 10, 1);
+        Vegetais chuchu = new Vegetais("Chuchu", 19, 4, 1);
+        Vegetais abobrinha = new Vegetais("Abobrinha", 17, 3, 1);
+        Vegetais repolho = new Vegetais("Repolho", 25, 6, 1);
+        Vegetais couve = new Vegetais("Couve", 32, 5, 3);
+        Vegetais brocolis = new Vegetais("Brocolis", 34, 7, 3);
+        Vegetais berinjela = new Vegetais("Berinjela", 25, 6, 1);
+
+        listaDeVegetais.add(pepino);
+        listaDeVegetais.add(cenoura);
+        listaDeVegetais.add(chuchu);
+        listaDeVegetais.add(abobrinha);
+        listaDeVegetais.add(repolho);
+        listaDeVegetais.add(couve);
+        listaDeVegetais.add(brocolis);
+        listaDeVegetais.add(berinjela);
+
+        return listaDeVegetais;
     }
 
     public List<Frutas> createFruitList() {

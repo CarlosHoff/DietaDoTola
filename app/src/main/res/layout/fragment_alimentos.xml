@@ -8,6 +8,10 @@
     android:background="@drawable/gradient_background"
     tools:context=".fragments.Alimentos">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -96,6 +100,28 @@
             app:layout_constraintTop_toBottomOf="@+id/text_frutas" />
 
         <TextView
+            android:id="@+id/text_legumes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/legumes"
+            android:fontFamily="@font/font_dietola"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chip_group_frutas" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group_vegetais"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_legumes" />
+
+        <TextView
             android:id="@+id/text_qtd_refeicoes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -106,7 +132,7 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chip_group_frutas" />
+            app:layout_constraintTop_toBottomOf="@+id/chip_group_vegetais" />
 
         <com.google.android.material.slider.Slider
             android:id="@+id/slider_qtd_refeicoes"
@@ -139,4 +165,6 @@
             app:layout_constraintTop_toBottomOf="@id/slider_qtd_refeicoes" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 </FrameLayout>

@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,12 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.hoffmann.dietadotola.R;
+import br.com.hoffmann.dietadotola.adapter.FrutaAdapter;
 import br.com.hoffmann.dietadotola.adapter.MontaDietaAdapter;
 import br.com.hoffmann.dietadotola.domain.response.auxiliar.Carboidratos;
-import br.com.hoffmann.dietadotola.domain.response.auxiliar.CarboidratosCalculados;
 import br.com.hoffmann.dietadotola.domain.response.auxiliar.Frutas;
 import br.com.hoffmann.dietadotola.domain.response.auxiliar.Proteinas;
-import br.com.hoffmann.dietadotola.domain.response.auxiliar.ProteinasCalculadas;
+import br.com.hoffmann.dietadotola.domain.response.auxiliar.Vegetais;
 import br.com.hoffmann.dietadotola.viewmodel.MontaDietaViewModel;
 
 public class MontaDieta extends Fragment {
@@ -30,12 +29,16 @@ public class MontaDieta extends Fragment {
     private static final String CARBOIDRATOS_SELECIONADOS = "carbosSelecionados";
     private static final String PROTEINAS_SELECIONADAS = "proteinasSelecionadas";
     private static final String FRUTAS_SELECIONADAS = "frutasSelecionadas";
-    private MontaDietaAdapter adapter;
+    private static final String VEGETAIS_SELECIONADAS = "vegetaisSelecionadas";
+    private MontaDietaAdapter montaDietaAdapter;
+    private FrutaAdapter frutaAdapter;
     MontaDietaViewModel viewModel = new MontaDietaViewModel();
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerViewDietas, recyclerViewFrutas;
     private int qtdRefeicoes, protRefeicao, carbRefeicao;
     private List<Carboidratos> listaCarboidratosSelecionados;
     private List<Proteinas> listProteinasSelecionadas;
+    private List<Frutas> listFrutasSelecionadas;
+    private List<Vegetais> listVegetaisSelecionadas;
 
     public MontaDieta() {
     }
@@ -50,8 +53,10 @@ public class MontaDieta extends Fragment {
             carbRefeicao = getArguments().getInt(CARBOIDRATOS_REFEICAO);
             listaCarboidratosSelecionados = getArguments().getParcelableArrayList(CARBOIDRATOS_SELECIONADOS);
             listProteinasSelecionadas = getArguments().getParcelableArrayList(PROTEINAS_SELECIONADAS);
+            listFrutasSelecionadas = getArguments().getParcelableArrayList(FRUTAS_SELECIONADAS);
+            listVegetaisSelecionadas = getArguments().getParcelableArrayList(VEGETAIS_SELECIONADAS);
 
-            viewModel.iniciarMontagemDieta(qtdRefeicoes, protRefeicao, carbRefeicao, listaCarboidratosSelecionados, listProteinasSelecionadas);
+            viewModel.iniciarMontagemDieta();
         }
     }
 
@@ -61,30 +66,47 @@ public class MontaDieta extends Fragment {
         viewModel = new ViewModelProvider(this).get(MontaDietaViewModel.class);
 
         View view = inflater.inflate(R.layout.fragment_monta_dieta, container, false);
-        recyclerView = view.findViewById(R.id.recicleViewDietas);
+        recyclerViewDietas = view.findViewById(R.id.recicleViewDietas);
+        recyclerViewFrutas = view.findViewById(R.id.recicleViewFrutas);
 
-        setupRecyclerView();
 
+        setupRecyclerViewFrutas();
+        viewModel.getListaDeFrutasPorRefeicao(listFrutasSelecionadas).observe(getViewLifecycleOwner(), frutasCalculadas -> {
+            frutaAdapter.setFrutasList(frutasCalculadas);
+            frutaAdapter.notifyDataSetChanged();
+        });
+
+        setupRecyclerViewDietas();
         viewModel.getListaDeCarbosPorRefeicao(qtdRefeicoes, carbRefeicao, listaCarboidratosSelecionados).observe(getViewLifecycleOwner(), carbosCalculados -> {
-            adapter.setCarboList(carbosCalculados);
-            adapter.notifyDataSetChanged();
+            montaDietaAdapter.setCarboList(carbosCalculados);
+            montaDietaAdapter.notifyDataSetChanged();
         });
+
         viewModel.getListaDeProteinasPorRefeicao(qtdRefeicoes, protRefeicao, listProteinasSelecionadas).observe(getViewLifecycleOwner(), proteinasCalculadas -> {
-            adapter.setProteinaList(proteinasCalculadas);
-            adapter.notifyDataSetChanged();
+            montaDietaAdapter.setProteinaList(proteinasCalculadas);
+            montaDietaAdapter.notifyDataSetChanged();
         });
-//        viewModel.getListaDeFrutasPorRefeicao().observe(getViewLifecycleOwner(), frutasCalculadas -> {
-//            adapter.setFrutasList(frutasCalculadas);
-//            adapter.notifyDataSetChanged();
-//        });
+
+        viewModel.getListaDeVegetaisPorRefeicao(qtdRefeicoes, protRefeicao, listVegetaisSelecionadas).observe(getViewLifecycleOwner(), vegetaisCalculados -> {
+            montaDietaAdapter.setVegetaisList(vegetaisCalculados);
+            montaDietaAdapter.notifyDataSetChanged();
+        });
+
         return view;
     }
 
-    private void setupRecyclerView() {
-        adapter = new MontaDietaAdapter(getContext(), new ArrayList<>(), new ArrayList<>());
+    private void setupRecyclerViewDietas() {
+        montaDietaAdapter = new MontaDietaAdapter(getContext(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+        recyclerViewDietas.setLayoutManager(layoutManager);
+        recyclerViewDietas.setAdapter(montaDietaAdapter);
+    }
+
+    private void setupRecyclerViewFrutas() {
+        frutaAdapter = new FrutaAdapter(getContext(), new ArrayList<>());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerViewFrutas.setLayoutManager(layoutManager);
+        recyclerViewFrutas.setAdapter(frutaAdapter);
     }
 
 }

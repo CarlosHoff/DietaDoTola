@@ -25,16 +25,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recicleViewDietas"
-        android:layout_width="match_parent"
-        android:layout_height="550dp"
-        android:layout_margin="5dp"
-        android:layout_gravity="top"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/texto_dietas"
-        app:layout_constraintStart_toStartOf="@id/texto_dietas"
-        app:layout_constraintTop_toBottomOf="@id/texto_dietas"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recicleViewFrutas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            app:layout_constraintEnd_toEndOf="@id/texto_dietas"
+            app:layout_constraintStart_toStartOf="@id/texto_dietas"
+            app:layout_constraintTop_toBottomOf="@id/texto_dietas"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recicleViewDietas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintEnd_toEndOf="@id/recicleViewFrutas"
+            app:layout_constraintTop_toBottomOf="@id/recicleViewFrutas" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

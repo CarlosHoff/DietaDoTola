@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -22,21 +23,25 @@ import br.com.hoffmann.dietadotola.R;
 import br.com.hoffmann.dietadotola.domain.response.auxiliar.Carboidratos;
 import br.com.hoffmann.dietadotola.domain.response.auxiliar.Frutas;
 import br.com.hoffmann.dietadotola.domain.response.auxiliar.Proteinas;
+import br.com.hoffmann.dietadotola.domain.response.auxiliar.Vegetais;
 import br.com.hoffmann.dietadotola.utils.Utilitarios;
 
 public class Alimentos extends Fragment {
-
-    private static final String TAXA_BASAL_FINAL = "taxaBasalFinal";
     private static final String PROTEINA = "proteina";
     private static final String CARBOIDRATO = "carboidrato";
-    private int taxaBasalFinal, proteina, carboidrato, qtdRefeicoes, protRefeicao, carbRefeicao;
-    private ChipGroup chipGroupCarbo, chipGroupProteina, chipGroupFruta;
+    private int proteina;
+    private int carboidrato;
+    private int qtdRefeicoes;
+    private int protRefeicao;
+    private int carbRefeicao;
+    private ChipGroup chipGroupCarbo, chipGroupProteina, chipGroupFruta, chipGroupVegetais;
     private Slider refeicoesSlider;
     private Button montarDieta;
     Utilitarios utils = new Utilitarios();
     List<Carboidratos> carbosSelecionados = new ArrayList<>();
     List<Proteinas> proteinasSelecionadas = new ArrayList<>();
     List<Frutas> frutasSelecionadas = new ArrayList<>();
+    List<Vegetais> vegetaisSelecionadas = new ArrayList<>();
 
     public Alimentos() {
     }
@@ -45,7 +50,6 @@ public class Alimentos extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            taxaBasalFinal = getArguments().getInt(TAXA_BASAL_FINAL);
             proteina = getArguments().getInt(PROTEINA);
             carboidrato = getArguments().getInt(CARBOIDRATO);
         }
@@ -68,21 +72,21 @@ public class Alimentos extends Fragment {
             @Override
             public void onStopTrackingTouch(@NonNull Slider slider) {
                 qtdRefeicoes = (int) slider.getValue();
+                pegaChipsSelecionados();
                 alimentosPorRefeicao(carboidrato, proteina, qtdRefeicoes);
-                pegaListaDeCarbos();
-                pegaListaDeProteinas();
-                pegaListaDeFrutas();
                 montarDieta.setVisibility(View.VISIBLE);
             }
         });
 
         montarDieta.setOnClickListener(v -> {
+            validaCampos();
+
             MontaDieta montaDieta = new MontaDieta();
             Bundle args = new Bundle();
-
             args.putParcelableArrayList("carbosSelecionados", new ArrayList<>(carbosSelecionados));
             args.putParcelableArrayList("proteinasSelecionadas", new ArrayList<>(proteinasSelecionadas));
             args.putParcelableArrayList("frutasSelecionadas", new ArrayList<>(frutasSelecionadas));
+            args.putParcelableArrayList("vegetaisSelecionadas", new ArrayList<>(vegetaisSelecionadas));
             args.putInt("qtdRefeicoes", qtdRefeicoes);
             args.putInt("protRefeicao", protRefeicao);
             args.putInt("carbRefeicao", carbRefeicao);
@@ -93,9 +97,29 @@ public class Alimentos extends Fragment {
             fragmentTransaction.replace(R.id.fragment_alimentos, montaDieta);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
+
         });
 
         return view;
+    }
+
+    private void pegaChipsSelecionados() {
+        pegaListaDeCarbos();
+        pegaListaDeProteinas();
+        pegaListaDeFrutas();
+        pegaListaDeVegetais();
+    }
+
+    private void validaCampos() {
+        if (carbosSelecionados.isEmpty()){
+            Toast.makeText(getContext(), "É necessário escolher no minimo 1 Carboidrato.", Toast.LENGTH_SHORT).show();
+        } else if (proteinasSelecionadas.isEmpty()){
+            Toast.makeText(getContext(), "É necessário escolher no minimo 1 Proteina.", Toast.LENGTH_SHORT).show();
+        } else if (vegetaisSelecionadas.isEmpty()) {
+            Toast.makeText(getContext(), "É necessário escolher no minimo 1 Vegetal.", Toast.LENGTH_SHORT).show();
+        } else if (qtdRefeicoes == 0) {
+            Toast.makeText(getContext(), "É necessário escolher a quantidade de refeiçoes que deseja fazer.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void pegaListaDeCarbos() {
@@ -125,6 +149,16 @@ public class Alimentos extends Fragment {
             Frutas frutas = new Frutas();
             frutas.setNome(chip.getText().toString());
             frutasSelecionadas.add(frutas);
+        }
+    }
+
+    private void pegaListaDeVegetais() {
+        List<Integer> checkedChipIds = chipGroupVegetais.getCheckedChipIds();
+        for (int chipId : checkedChipIds) {
+            Chip chip = chipGroupVegetais.findViewById(chipId);
+            Vegetais vegetais = new Vegetais();
+            vegetais.setNome(chip.getText().toString());
+            vegetaisSelecionadas.add(vegetais);
         }
     }
 
@@ -163,12 +197,22 @@ public class Alimentos extends Fragment {
             chip.setCheckable(true);
             chipGroupFruta.addView(chip);
         }
+
+        List<Vegetais> listaDeVegetais = utils.createVegetaisList();
+        for (Vegetais valor : listaDeVegetais) {
+            Chip chip = new Chip(getContext());
+            chip.setText(valor.getNome());
+            chip.setClickable(true);
+            chip.setCheckable(true);
+            chipGroupVegetais.addView(chip);
+        }
     }
 
     private void iniciaComponentes(View view) {
         chipGroupCarbo = view.findViewById(R.id.chip_group_carbo);
         chipGroupProteina = view.findViewById(R.id.chip_group_proteinas);
         chipGroupFruta = view.findViewById(R.id.chip_group_frutas);
+        chipGroupVegetais = view.findViewById(R.id.chip_group_vegetais);
         refeicoesSlider = view.findViewById(R.id.slider_qtd_refeicoes);
         montarDieta = view.findViewById(R.id.irPaginaDieta);
     }
