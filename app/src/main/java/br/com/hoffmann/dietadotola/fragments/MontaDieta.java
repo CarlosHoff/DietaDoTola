@@ -24,8 +24,9 @@ import br.com.hoffmann.dietadotola.viewmodel.MontaDietaViewModel;
 
 public class MontaDieta extends Fragment {
     private static final String QTD_REFEICOES = "qtdRefeicoes";
-    private static final String PROTEINAS_REFEICAO = "protRefeicao";
-    private static final String CARBOIDRATOS_REFEICAO = "carbRefeicao";
+    private static final String PROTEINAS_REFEICAO = "proteinaRefeicao";
+    private static final String CARBOIDRATOS_REFEICAO = "carboidratoRefeicao";
+    private static final String GORDURA_REFEICAO = "gorduraRefeicao";
     private static final String CARBOIDRATOS_SELECIONADOS = "carbosSelecionados";
     private static final String PROTEINAS_SELECIONADAS = "proteinasSelecionadas";
     private static final String FRUTAS_SELECIONADAS = "frutasSelecionadas";
@@ -34,7 +35,7 @@ public class MontaDieta extends Fragment {
     private FrutaAdapter frutaAdapter;
     MontaDietaViewModel viewModel = new MontaDietaViewModel();
     private RecyclerView recyclerViewDietas, recyclerViewFrutas;
-    private int qtdRefeicoes, protRefeicao, carbRefeicao;
+    private int qtdRefeicoes, proteinaRefeicao, carboidratoRefeicao, gorduraRefeicao;
     private List<Carboidratos> listaCarboidratosSelecionados;
     private List<Proteinas> listProteinasSelecionadas;
     private List<Frutas> listFrutasSelecionadas;
@@ -49,8 +50,9 @@ public class MontaDieta extends Fragment {
 
         if (getArguments() != null) {
             qtdRefeicoes = getArguments().getInt(QTD_REFEICOES);
-            protRefeicao = getArguments().getInt(PROTEINAS_REFEICAO);
-            carbRefeicao = getArguments().getInt(CARBOIDRATOS_REFEICAO);
+            proteinaRefeicao = getArguments().getInt(PROTEINAS_REFEICAO);
+            carboidratoRefeicao = getArguments().getInt(CARBOIDRATOS_REFEICAO);
+            gorduraRefeicao = getArguments().getInt(GORDURA_REFEICAO);
             listaCarboidratosSelecionados = getArguments().getParcelableArrayList(CARBOIDRATOS_SELECIONADOS);
             listProteinasSelecionadas = getArguments().getParcelableArrayList(PROTEINAS_SELECIONADAS);
             listFrutasSelecionadas = getArguments().getParcelableArrayList(FRUTAS_SELECIONADAS);
@@ -77,17 +79,17 @@ public class MontaDieta extends Fragment {
         });
 
         setupRecyclerViewDietas();
-        viewModel.getListaDeCarbosPorRefeicao(qtdRefeicoes, carbRefeicao, listaCarboidratosSelecionados).observe(getViewLifecycleOwner(), carbosCalculados -> {
+        viewModel.getListaDeCarbosPorRefeicao(qtdRefeicoes, carboidratoRefeicao, listaCarboidratosSelecionados).observe(getViewLifecycleOwner(), carbosCalculados -> {
             montaDietaAdapter.setCarboList(carbosCalculados);
             montaDietaAdapter.notifyDataSetChanged();
         });
 
-        viewModel.getListaDeProteinasPorRefeicao(qtdRefeicoes, protRefeicao, listProteinasSelecionadas).observe(getViewLifecycleOwner(), proteinasCalculadas -> {
+        viewModel.getListaDeProteinasPorRefeicao(qtdRefeicoes, proteinaRefeicao, listProteinasSelecionadas).observe(getViewLifecycleOwner(), proteinasCalculadas -> {
             montaDietaAdapter.setProteinaList(proteinasCalculadas);
             montaDietaAdapter.notifyDataSetChanged();
         });
 
-        viewModel.getListaDeVegetaisPorRefeicao(qtdRefeicoes, protRefeicao, listVegetaisSelecionadas).observe(getViewLifecycleOwner(), vegetaisCalculados -> {
+        viewModel.getListaDeVegetaisPorRefeicao(qtdRefeicoes, proteinaRefeicao, listVegetaisSelecionadas).observe(getViewLifecycleOwner(), vegetaisCalculados -> {
             montaDietaAdapter.setVegetaisList(vegetaisCalculados);
             montaDietaAdapter.notifyDataSetChanged();
         });

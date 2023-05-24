@@ -93,7 +93,7 @@ public class Utilitarios {
         return listaDeFrutas;
     }
 
-    public double calculaGramasPorRefeicao(double carbRefeicao, double qtdPorporcao) {
-        return (carbRefeicao / qtdPorporcao) * 100.0;
+    public double calculaGramasPorRefeicao(double caloriasPorRefeicao, double qtdCaloriasPorPorcao) {
+        return (caloriasPorRefeicao / qtdCaloriasPorPorcao) * 100;
     }
 }

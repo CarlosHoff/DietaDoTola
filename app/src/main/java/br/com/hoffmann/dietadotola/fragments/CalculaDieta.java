@@ -78,13 +78,11 @@ public class CalculaDieta extends Fragment {
         });
 
         proximaPagina.setOnClickListener(v -> {
-            calculaProteina();
-            calculaCarboidrato();
+            //calculaProteina();
+            //calculaCarboidrato();
             Fragment alimentos = new Alimentos();
             Bundle args = new Bundle();
             args.putInt("taxaBasalFinal", taxaBasalFinal);
-            args.putInt("proteina", (int) proteina);
-            args.putInt("carboidrato", (int) carboidrato);
             alimentos.setArguments(args);
             FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

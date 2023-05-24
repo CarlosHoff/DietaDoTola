@@ -27,13 +27,9 @@ import br.com.hoffmann.dietadotola.domain.response.auxiliar.Vegetais;
 import br.com.hoffmann.dietadotola.utils.Utilitarios;
 
 public class Alimentos extends Fragment {
-    private static final String PROTEINA = "proteina";
-    private static final String CARBOIDRATO = "carboidrato";
-    private int proteina;
-    private int carboidrato;
-    private int qtdRefeicoes;
-    private int protRefeicao;
-    private int carbRefeicao;
+    private static final String TDEE = "taxaBasalFinal";
+
+    private int qtdRefeicoes, proteinaRefeicao, carboidratoRefeicao, gorduraRefeicao, tdee;
     private ChipGroup chipGroupCarbo, chipGroupProteina, chipGroupFruta, chipGroupVegetais;
     private Slider refeicoesSlider;
     private Button montarDieta;
@@ -50,8 +46,7 @@ public class Alimentos extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            proteina = getArguments().getInt(PROTEINA);
-            carboidrato = getArguments().getInt(CARBOIDRATO);
+            tdee = getArguments().getInt(TDEE);
         }
     }
 
@@ -73,7 +68,7 @@ public class Alimentos extends Fragment {
             public void onStopTrackingTouch(@NonNull Slider slider) {
                 qtdRefeicoes = (int) slider.getValue();
                 pegaChipsSelecionados();
-                alimentosPorRefeicao(carboidrato, proteina, qtdRefeicoes);
+                alimentosPorRefeicao(tdee, qtdRefeicoes);
                 montarDieta.setVisibility(View.VISIBLE);
             }
         });
@@ -88,9 +83,9 @@ public class Alimentos extends Fragment {
             args.putParcelableArrayList("frutasSelecionadas", new ArrayList<>(frutasSelecionadas));
             args.putParcelableArrayList("vegetaisSelecionadas", new ArrayList<>(vegetaisSelecionadas));
             args.putInt("qtdRefeicoes", qtdRefeicoes);
-            args.putInt("protRefeicao", protRefeicao);
-            args.putInt("carbRefeicao", carbRefeicao);
-            args.putInt("carbRefeicao", carbRefeicao);
+            args.putInt("proteinaRefeicao", proteinaRefeicao);
+            args.putInt("carboidratoRefeicao", carboidratoRefeicao);
+            args.putInt("gorduraRefeicao", gorduraRefeicao);
             montaDieta.setArguments(args);
             FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -162,9 +157,10 @@ public class Alimentos extends Fragment {
         }
     }
 
-    private void alimentosPorRefeicao(int carboidratro, int proteina, int qtdRefeicoes) {
-        protRefeicao = proteina / qtdRefeicoes;
-        carbRefeicao = carboidratro / qtdRefeicoes;
+    private void alimentosPorRefeicao(int tdee, int qtdRefeicoes) {
+        carboidratoRefeicao = (int) (((60.0 / 100.0) * tdee) / qtdRefeicoes);
+        proteinaRefeicao = (int) (((30.0 / 100.0) * tdee) / qtdRefeicoes);
+        gorduraRefeicao = (int) (((10.0 / 100.0) * tdee) / qtdRefeicoes);
     }
 
     private void CriaChipGroups() {
