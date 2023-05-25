@@ -29,10 +29,10 @@ public class MontaDietaRepository {
         List<FrutasCalculadas> frutasCalculadosList = new ArrayList<>();
         List<Frutas> frutasListFull = utils.createFruitList();
 
-        int indiceAleatorio = random.nextInt(listFrutasSelecionadas.size());
-        String nomeFruta = listFrutasSelecionadas.get(indiceAleatorio).getNome();
-
         for (Frutas frutas : frutasListFull) {
+            int indiceAleatorio = random.nextInt(listFrutasSelecionadas.size());
+            String nomeFruta = listFrutasSelecionadas.get(indiceAleatorio).getNome();
+
             if (nomeFruta.equalsIgnoreCase(frutas.getNome())) {
                 FrutasCalculadas calculados = new FrutasCalculadas();
 
@@ -45,7 +45,6 @@ public class MontaDietaRepository {
             }
         }
         frutasLiveData.setValue(frutasCalculadosList);
-
         return frutasLiveData;
     }
 
@@ -111,7 +110,10 @@ public class MontaDietaRepository {
         return proteinaLiveData;
     }
 
-    public LiveData<List<CarboidratosCalculados>> escolherCarbos(int qtdRefeicoes, int caloriasCarboidratoPorRefeicao, List<Carboidratos> listaCarboidratosSelecionados) {
+    public LiveData<List<CarboidratosCalculados>> escolherCarbos(int qtdRefeicoes, int caloriasCarboidratoPorRefeicao,
+                                                                 List<Carboidratos> listaCarboidratosSelecionados,
+                                                                 int gorduraRefeicao, List<VegetaisCalculados> listaFinalVegetais) {
+
         MutableLiveData<List<CarboidratosCalculados>> carbosLiveData = new MutableLiveData<>();
         List<CarboidratosCalculados> carboidratosCalculadosList = new ArrayList<>();
         List<Carboidratos> carboidratosListFull = utils.createCarboList();
@@ -121,6 +123,7 @@ public class MontaDietaRepository {
             for (int i = 0; i < qtdRefeicoes; i++) {
                 int indiceAleatorio = random.nextInt(listaCarboidratosSelecionados.size());
                 String nomeCarbo = listaCarboidratosSelecionados.get(indiceAleatorio).getNome();
+                int caloriasVegetal = listaFinalVegetais.get(indiceAleatorio).getCalorias();
 
                 for (Carboidratos carboidratos : carboidratosListFull) {
                     if (nomeCarbo.equalsIgnoreCase(carboidratos.getNome())) {
@@ -133,7 +136,8 @@ public class MontaDietaRepository {
                         double gramasCalculadas = utils.calculaGramasPorRefeicao(caloriasCarboidratoPorRefeicao, qtdCaloriasPorPorcao);
 
                         calculados.setNome(listaCarboidratosSelecionados.get(indiceAleatorio).getNome());
-                        calculados.setGramasPorRefeicao((int) gramasCalculadas);
+
+                        calculados.setGramasPorRefeicao((int) gramasCalculadas - gorduraRefeicao - caloriasVegetal);
 
                         carboidratosCalculadosList.add(calculados);
                     }
@@ -151,18 +155,22 @@ public class MontaDietaRepository {
                 } else {
                     for (Carboidratos carboidratos : carboidratosListFull) {
                         if (nomeCarbo.equalsIgnoreCase(carboidratos.getNome())) {
-                            CarboidratosCalculados calculados = new CarboidratosCalculados();
 
-                            listaCarboidratosSelecionados.get(indiceAleatorio).setQtdCarboidratos(carboidratos.getQtdCarboidratos());
-                            listaCarboidratosSelecionados.get(indiceAleatorio).setCalorias(carboidratos.getCalorias());
+                            for (VegetaisCalculados vegetaisCalculados : listaFinalVegetais) {
 
-                            int qtdCaloriasPorPorcao = listaCarboidratosSelecionados.get(indiceAleatorio).getCalorias();
-                            double gramasCalculadas = utils.calculaGramasPorRefeicao(caloriasCarboidratoPorRefeicao, qtdCaloriasPorPorcao);
+                                CarboidratosCalculados calculados = new CarboidratosCalculados();
 
-                            calculados.setNome(listaCarboidratosSelecionados.get(indiceAleatorio).getNome());
-                            calculados.setGramasPorRefeicao((int) gramasCalculadas);
+                                listaCarboidratosSelecionados.get(indiceAleatorio).setQtdCarboidratos(carboidratos.getQtdCarboidratos());
+                                listaCarboidratosSelecionados.get(indiceAleatorio).setCalorias(carboidratos.getCalorias());
 
-                            carboidratosCalculadosList.add(calculados);
+                                int qtdCaloriasPorPorcao = listaCarboidratosSelecionados.get(indiceAleatorio).getCalorias();
+                                double gramasCalculadas = utils.calculaGramasPorRefeicao(caloriasCarboidratoPorRefeicao, qtdCaloriasPorPorcao);
+
+                                calculados.setNome(listaCarboidratosSelecionados.get(indiceAleatorio).getNome());
+                                calculados.setGramasPorRefeicao((int) gramasCalculadas - gorduraRefeicao - vegetaisCalculados.getCalorias());
+
+                                carboidratosCalculadosList.add(calculados);
+                            }
                         }
                     }
                 }
@@ -173,7 +181,7 @@ public class MontaDietaRepository {
         return carbosLiveData;
     }
 
-    public LiveData<List<VegetaisCalculados>> escolherVegetais(int qtdRefeicoes, int carbRefeicao, List<Vegetais> listaVegetaisSelecionados) {
+    public LiveData<List<VegetaisCalculados>> escolherVegetais(int qtdRefeicoes, int carboidratoRefeicao, List<Vegetais> listaVegetaisSelecionados) {
         MutableLiveData<List<VegetaisCalculados>> vegetaisLiveData = new MutableLiveData<>();
         List<VegetaisCalculados> VegetaisCalculadosList = new ArrayList<>();
         List<Vegetais> vegetaisListFull = utils.createVegetaisList();
@@ -192,7 +200,7 @@ public class MontaDietaRepository {
                         listaVegetaisSelecionados.get(indiceAleatorio).setCalorias(vegetais.getCalorias());
 
                         int qtdVegetalPorPorcao = listaVegetaisSelecionados.get(indiceAleatorio).getQtdCarboidratos();
-                        double gramasCalculadas = utils.calculaGramasPorRefeicao(carbRefeicao, qtdVegetalPorPorcao);
+                        double gramasCalculadas = utils.calculaGramasPorRefeicao(carboidratoRefeicao, qtdVegetalPorPorcao);
 
                         calculados.setNome(listaVegetaisSelecionados.get(indiceAleatorio).getNome());
                         calculados.setGramasPorRefeicao((int) gramasCalculadas);
@@ -219,7 +227,7 @@ public class MontaDietaRepository {
                             listaVegetaisSelecionados.get(indiceAleatorio).setCalorias(vegetais.getCalorias());
 
                             int qtdVegetalPorPorcao = listaVegetaisSelecionados.get(indiceAleatorio).getQtdCarboidratos();
-                            double gramasCalculadas = utils.calculaGramasPorRefeicao(carbRefeicao, qtdVegetalPorPorcao);
+                            double gramasCalculadas = utils.calculaGramasPorRefeicao(carboidratoRefeicao, qtdVegetalPorPorcao);
 
                             calculados.setNome(listaVegetaisSelecionados.get(indiceAleatorio).getNome());
                             calculados.setGramasPorRefeicao((int) gramasCalculadas);

@@ -43,8 +43,9 @@ public class MontaDietaAdapter extends RecyclerView.Adapter<MontaDietaAdapter.Vi
         VegetaisCalculados vegetal = vegetaisList.get(position);
 
         holder.textoRefeicao.setText(String.format("REFEIÇÃO %s", position + 1));
-        holder.textoUm.setText(String.format("%s gramas de  %s", carbo.getGramasPorRefeicao(), carbo.getNome()));
-        holder.textoDois.setText(String.format("%s gramas de  %s", proteina.getGramasPorRefeicao(), proteina.getNome()));
+        holder.textoUm.setText(String.format("%s gramas de %s", carbo.getGramasPorRefeicao(), carbo.getNome()));
+        holder.textoDois.setText(String.format("100 gramas de %s", vegetal.getNome()));
+        holder.textoTres.setText(String.format("%s gramas de %s", proteina.getGramasPorRefeicao(), proteina.getNome()));
 
     }
 
@@ -54,14 +55,15 @@ public class MontaDietaAdapter extends RecyclerView.Adapter<MontaDietaAdapter.Vi
         return carboList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textoRefeicao, textoUm, textoDois;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView textoRefeicao, textoUm, textoDois, textoTres;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textoRefeicao = itemView.findViewById(R.id.texto_refeicao);
             textoUm = itemView.findViewById(R.id.texto_um);
             textoDois = itemView.findViewById(R.id.texto_dois);
+            textoTres = itemView.findViewById(R.id.texto_tres);
         }
     }
 

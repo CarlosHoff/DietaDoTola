@@ -78,8 +78,6 @@ public class CalculaDieta extends Fragment {
         });
 
         proximaPagina.setOnClickListener(v -> {
-            //calculaProteina();
-            //calculaCarboidrato();
             Fragment alimentos = new Alimentos();
             Bundle args = new Bundle();
             args.putInt("taxaBasalFinal", taxaBasalFinal);
@@ -177,46 +175,6 @@ public class CalculaDieta extends Fragment {
             Toast.makeText(getContext(), "Preencha seu estado-atual", Toast.LENGTH_SHORT).show();
         }
         return false;
-    }
-
-    private void calculaProteina() {
-        switch ((int) estadoAtual) {
-            case 1:
-                proteina = peso * 2;
-                break;
-            case 2:
-                proteina = peso * 2.6;
-                break;
-            case 3:
-                proteina = peso * 2.2;
-                break;
-            case 4:
-                proteina = peso * 1.8;
-                break;
-            default:
-                Log.d("estado_atual", "Estado atual inválido");
-                break;
-        }
-    }
-
-    private void calculaCarboidrato() {
-        switch ((int) estadoAtual) {
-            case 1:
-                carboidrato = (tdee * 0.55) / 4;
-                break;
-            case 2:
-                carboidrato = (tdee * 0.48) / 4;
-                break;
-            case 3:
-                carboidrato = (tdee * 0.53) / 4;
-                break;
-            case 4:
-                carboidrato = (tdee * 0.58) / 4;
-                break;
-            default:
-                Log.d("switch_Carboidrato", "Erro no metodo calculaCarboidrato.");
-                break;
-        }
     }
 
     private void iniciaComponentes(View view) {

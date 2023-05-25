@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class VegetaisCalculados implements Serializable {
     private String nome;
     private int gramasPorRefeicao;
+    private int calorias;
 
     public String getNome() {
         return nome;
@@ -22,4 +23,11 @@ public class VegetaisCalculados implements Serializable {
         this.gramasPorRefeicao = gramasPorRefeicao;
     }
 
+    public int getCalorias() {
+        return calorias;
+    }
+
+    public void setCalorias(int calorias) {
+        this.calorias = calorias;
+    }
 }

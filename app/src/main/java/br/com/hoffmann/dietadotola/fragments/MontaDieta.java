@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +21,7 @@ import br.com.hoffmann.dietadotola.domain.response.auxiliar.Carboidratos;
 import br.com.hoffmann.dietadotola.domain.response.auxiliar.Frutas;
 import br.com.hoffmann.dietadotola.domain.response.auxiliar.Proteinas;
 import br.com.hoffmann.dietadotola.domain.response.auxiliar.Vegetais;
+import br.com.hoffmann.dietadotola.domain.response.auxiliar.VegetaisCalculados;
 import br.com.hoffmann.dietadotola.viewmodel.MontaDietaViewModel;
 
 public class MontaDieta extends Fragment {
@@ -78,8 +80,10 @@ public class MontaDieta extends Fragment {
             frutaAdapter.notifyDataSetChanged();
         });
 
+        List<VegetaisCalculados> listaFinalVegetais = viewModel.getListaDeVegetaisPorRefeicao(qtdRefeicoes, carboidratoRefeicao, listVegetaisSelecionadas).getValue();
+
         setupRecyclerViewDietas();
-        viewModel.getListaDeCarbosPorRefeicao(qtdRefeicoes, carboidratoRefeicao, listaCarboidratosSelecionados).observe(getViewLifecycleOwner(), carbosCalculados -> {
+        viewModel.getListaDeCarbosPorRefeicao(qtdRefeicoes, carboidratoRefeicao, listaCarboidratosSelecionados, gorduraRefeicao, listaFinalVegetais).observe(getViewLifecycleOwner(), carbosCalculados -> {
             montaDietaAdapter.setCarboList(carbosCalculados);
             montaDietaAdapter.notifyDataSetChanged();
         });
@@ -89,7 +93,7 @@ public class MontaDieta extends Fragment {
             montaDietaAdapter.notifyDataSetChanged();
         });
 
-        viewModel.getListaDeVegetaisPorRefeicao(qtdRefeicoes, proteinaRefeicao, listVegetaisSelecionadas).observe(getViewLifecycleOwner(), vegetaisCalculados -> {
+        viewModel.getListaDeVegetaisPorRefeicao(qtdRefeicoes, carboidratoRefeicao, listVegetaisSelecionadas).observe(getViewLifecycleOwner(), vegetaisCalculados -> {
             montaDietaAdapter.setVegetaisList(vegetaisCalculados);
             montaDietaAdapter.notifyDataSetChanged();
         });

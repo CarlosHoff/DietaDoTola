@@ -28,7 +28,6 @@ import br.com.hoffmann.dietadotola.utils.Utilitarios;
 
 public class Alimentos extends Fragment {
     private static final String TDEE = "taxaBasalFinal";
-
     private int qtdRefeicoes, proteinaRefeicao, carboidratoRefeicao, gorduraRefeicao, tdee;
     private ChipGroup chipGroupCarbo, chipGroupProteina, chipGroupFruta, chipGroupVegetais;
     private Slider refeicoesSlider;

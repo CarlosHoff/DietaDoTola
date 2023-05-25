@@ -33,12 +33,15 @@ public class FrutaAdapter extends RecyclerView.Adapter<FrutaAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if (position == 0 && frutasList.size() > 1) {
-            holder.frutaUm.setText(String.format("%s gramas de  %s", 200, frutasList.get(0).getNome()));
-            holder.frutaDois.setText(String.format("%s gramas de  %s", 100, frutasList.get(1).getNome()));
+        if (position == 0 && frutasList.size() >= 2) {
+            FrutasCalculadas frutaUm = frutasList.get(0);
+            FrutasCalculadas frutaDois = frutasList.get(1);
+
+            holder.frutaUm.setText(String.format("%s gramas de %s", 200, frutaUm.getNome()));
+            holder.frutaDois.setText(String.format("%s gramas de %s", 100, frutaDois.getNome()));
         } else if (position == 0 && frutasList.size() == 1) {
             FrutasCalculadas frutasUm = frutasList.get(0);
-            holder.frutaUm.setText(String.format("%s gramas de  %s", 300, frutasUm.getNome()));
+            holder.frutaUm.setText(String.format("%s gramas de %s", 300, frutasUm.getNome()));
         }
     }
 

@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import br.com.hoffmann.dietadotola.domain.response.auxiliar.Carboidratos;
 import br.com.hoffmann.dietadotola.domain.response.auxiliar.CarboidratosCalculados;
@@ -17,7 +16,6 @@ import br.com.hoffmann.dietadotola.domain.response.auxiliar.ProteinasCalculadas;
 import br.com.hoffmann.dietadotola.domain.response.auxiliar.Vegetais;
 import br.com.hoffmann.dietadotola.domain.response.auxiliar.VegetaisCalculados;
 import br.com.hoffmann.dietadotola.repository.MontaDietaRepository;
-import br.com.hoffmann.dietadotola.utils.Utilitarios;
 
 public class MontaDietaViewModel extends ViewModel {
     private final MontaDietaRepository montaDietaRepository;
@@ -37,8 +35,8 @@ public class MontaDietaViewModel extends ViewModel {
         listaDeVegetaisPorRefeicao.setValue(new ArrayList<>());
     }
 
-    public LiveData<List<CarboidratosCalculados>> getListaDeCarbosPorRefeicao(int qtdRefeicoes, int carbRefeicao, List<Carboidratos> listaCarboidratosSelecionados) {
-        return montaDietaRepository.escolherCarbos(qtdRefeicoes, carbRefeicao, listaCarboidratosSelecionados);
+    public LiveData<List<CarboidratosCalculados>> getListaDeCarbosPorRefeicao(int qtdRefeicoes, int carbRefeicao, List<Carboidratos> listaCarboidratosSelecionados, int gorduraRefeicao, List<VegetaisCalculados> listaFinalVegetais) {
+        return montaDietaRepository.escolherCarbos(qtdRefeicoes, carbRefeicao, listaCarboidratosSelecionados, gorduraRefeicao, listaFinalVegetais);
     }
 
     public LiveData<List<ProteinasCalculadas>> getListaDeProteinasPorRefeicao(int qtdRefeicoes, int protRefeicao, List<Proteinas> listProteinasSelecionadas) {
@@ -49,8 +47,8 @@ public class MontaDietaViewModel extends ViewModel {
         return montaDietaRepository.escolherFrutas(listFrutasSelecionadas);
     }
 
-    public LiveData<List<VegetaisCalculados>> getListaDeVegetaisPorRefeicao(int qtdRefeicoes, int protRefeicao, List<Vegetais> listVegetaisSelecionadas) {
-        return montaDietaRepository.escolherVegetais(qtdRefeicoes, protRefeicao, listVegetaisSelecionadas);
+    public LiveData<List<VegetaisCalculados>> getListaDeVegetaisPorRefeicao(int qtdRefeicoes, int carboidratoRefeicao, List<Vegetais> listVegetaisSelecionadas) {
+        return montaDietaRepository.escolherVegetais(qtdRefeicoes, carboidratoRefeicao, listVegetaisSelecionadas);
     }
 
 }
