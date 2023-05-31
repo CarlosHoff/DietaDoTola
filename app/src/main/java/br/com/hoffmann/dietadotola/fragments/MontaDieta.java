@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
@@ -12,6 +13,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,15 +38,18 @@ public class MontaDieta extends Fragment {
     private static final String PROTEINAS_SELECIONADAS = "proteinasSelecionadas";
     private static final String FRUTAS_SELECIONADAS = "frutasSelecionadas";
     private static final String VEGETAIS_SELECIONADAS = "vegetaisSelecionadas";
+    private static final String PESO = "peso";
     private MontaDietaAdapter montaDietaAdapter;
     private FrutaAdapter frutaAdapter;
     MontaDietaViewModel viewModel = new MontaDietaViewModel();
     private RecyclerView recyclerViewDietas, recyclerViewFrutas;
     private int qtdRefeicoes, proteinaRefeicao, carboidratoRefeicao, gorduraRefeicao;
+    private Double peso;
     private List<Carboidratos> listaCarboidratosSelecionados;
     private List<Proteinas> listProteinasSelecionadas;
     private List<Frutas> listFrutasSelecionadas;
     private List<Vegetais> listVegetaisSelecionadas;
+    private TextView textoAgua;
 
     public MontaDieta() {
     }
@@ -56,6 +63,7 @@ public class MontaDieta extends Fragment {
             proteinaRefeicao = getArguments().getInt(PROTEINAS_REFEICAO);
             carboidratoRefeicao = getArguments().getInt(CARBOIDRATOS_REFEICAO);
             gorduraRefeicao = getArguments().getInt(GORDURA_REFEICAO);
+            peso = getArguments().getDouble(PESO);
             listaCarboidratosSelecionados = getArguments().getParcelableArrayList(CARBOIDRATOS_SELECIONADOS);
             listProteinasSelecionadas = getArguments().getParcelableArrayList(PROTEINAS_SELECIONADAS);
             listFrutasSelecionadas = getArguments().getParcelableArrayList(FRUTAS_SELECIONADAS);
@@ -65,7 +73,7 @@ public class MontaDieta extends Fragment {
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint({"NotifyDataSetChanged", "DefaultLocale"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -98,8 +106,17 @@ public class MontaDieta extends Fragment {
             montaDietaAdapter.setVegetaisList(vegetaisCalculados);
             montaDietaAdapter.notifyDataSetChanged();
         });
+        textoAgua = view.findViewById(R.id.texto_agua);
+
+        textoAgua.setText(String.format("Você deve beber %.1f litros de água por dia.", formataNumero()));
+
 
         return view;
+    }
+
+    private double formataNumero() {
+        BigDecimal number = BigDecimal.valueOf(peso * 35).divide(BigDecimal.valueOf(1000), 1, RoundingMode.HALF_UP);
+        return number.doubleValue();
     }
 
     private void setupRecyclerViewDietas() {

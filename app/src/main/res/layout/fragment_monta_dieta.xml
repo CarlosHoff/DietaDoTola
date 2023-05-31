@@ -18,7 +18,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginBottom="5dp"
         android:gravity="center"
-        android:text="DIETAS"
+        android:text="@string/dietas"
         android:textColor="@color/white"
         android:textSize="35sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,6 +42,17 @@
             android:layout_marginEnd="5dp"
             app:layout_constraintEnd_toEndOf="@id/recicleViewFrutas"
             app:layout_constraintTop_toBottomOf="@id/recicleViewFrutas" />
+
+        <TextView
+            android:id="@+id/texto_agua"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="@id/recicleViewDietas"
+            app:layout_constraintTop_toBottomOf="@id/recicleViewDietas"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

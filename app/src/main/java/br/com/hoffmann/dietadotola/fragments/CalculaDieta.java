@@ -91,6 +91,7 @@ public class CalculaDieta extends Fragment {
             Fragment alimentos = new Alimentos();
             Bundle args = new Bundle();
             args.putInt("taxaBasalFinal", taxaBasalFinal);
+            args.putDouble("peso", peso);
             alimentos.setArguments(args);
             FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

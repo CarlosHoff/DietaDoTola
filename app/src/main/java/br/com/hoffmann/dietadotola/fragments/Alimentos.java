@@ -28,7 +28,9 @@ import br.com.hoffmann.dietadotola.utils.Utilitarios;
 
 public class Alimentos extends Fragment {
     private static final String TDEE = "taxaBasalFinal";
+    private static final String PESO = "peso";
     private int proteinaRefeicao, carboidratoRefeicao, gorduraRefeicao, tdee;
+    private Double peso;
     private ChipGroup chipGroupCarbo, chipGroupProteina, chipGroupFruta, chipGroupVegetais;
     private RadioGroup radioGroupRefeicoes;
     private RadioButton qtdRefeicoesSelecionada;
@@ -47,6 +49,7 @@ public class Alimentos extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             tdee = getArguments().getInt(TDEE);
+            peso = getArguments().getDouble(PESO);
         }
     }
 
@@ -84,6 +87,7 @@ public class Alimentos extends Fragment {
             args.putInt("proteinaRefeicao", proteinaRefeicao);
             args.putInt("carboidratoRefeicao", carboidratoRefeicao);
             args.putInt("gorduraRefeicao", gorduraRefeicao);
+            args.putDouble("peso", peso);
             montaDieta.setArguments(args);
             FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
