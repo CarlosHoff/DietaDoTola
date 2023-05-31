@@ -5,16 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-import com.google.android.material.slider.Slider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +28,10 @@ import br.com.hoffmann.dietadotola.utils.Utilitarios;
 
 public class Alimentos extends Fragment {
     private static final String TDEE = "taxaBasalFinal";
-    private int qtdRefeicoes, proteinaRefeicao, carboidratoRefeicao, gorduraRefeicao, tdee;
+    private int proteinaRefeicao, carboidratoRefeicao, gorduraRefeicao, tdee;
     private ChipGroup chipGroupCarbo, chipGroupProteina, chipGroupFruta, chipGroupVegetais;
-    private Slider refeicoesSlider;
+    private RadioGroup radioGroupRefeicoes;
+    private RadioButton qtdRefeicoesSelecionada;
     private Button montarDieta;
     Utilitarios utils = new Utilitarios();
     List<Carboidratos> carbosSelecionados = new ArrayList<>();
@@ -58,22 +59,20 @@ public class Alimentos extends Fragment {
 
         CriaChipGroups();
 
-        refeicoesSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
+        radioGroupRefeicoes.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onStartTrackingTouch(@NonNull Slider slider) {
-            }
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                qtdRefeicoesSelecionada = view.findViewById(checkedId);
 
-            @Override
-            public void onStopTrackingTouch(@NonNull Slider slider) {
-                qtdRefeicoes = (int) slider.getValue();
                 pegaChipsSelecionados();
-                alimentosPorRefeicao(tdee, qtdRefeicoes);
+                alimentosPorRefeicao(tdee, Integer.parseInt(qtdRefeicoesSelecionada.getText().toString()));
                 montarDieta.setVisibility(View.VISIBLE);
+
             }
         });
 
         montarDieta.setOnClickListener(v -> {
-            validaCampos();
+            //validaCampos();
 
             MontaDieta montaDieta = new MontaDieta();
             Bundle args = new Bundle();
@@ -81,7 +80,7 @@ public class Alimentos extends Fragment {
             args.putParcelableArrayList("proteinasSelecionadas", new ArrayList<>(proteinasSelecionadas));
             args.putParcelableArrayList("frutasSelecionadas", new ArrayList<>(frutasSelecionadas));
             args.putParcelableArrayList("vegetaisSelecionadas", new ArrayList<>(vegetaisSelecionadas));
-            args.putInt("qtdRefeicoes", qtdRefeicoes);
+            args.putInt("qtdRefeicoes", Integer.parseInt(qtdRefeicoesSelecionada.getText().toString()));
             args.putInt("proteinaRefeicao", proteinaRefeicao);
             args.putInt("carboidratoRefeicao", carboidratoRefeicao);
             args.putInt("gorduraRefeicao", gorduraRefeicao);
@@ -105,13 +104,13 @@ public class Alimentos extends Fragment {
     }
 
     private void validaCampos() {
-        if (carbosSelecionados.isEmpty()){
+        if (carbosSelecionados.isEmpty()) {
             Toast.makeText(getContext(), "É necessário escolher no minimo 1 Carboidrato.", Toast.LENGTH_SHORT).show();
-        } else if (proteinasSelecionadas.isEmpty()){
+        } else if (proteinasSelecionadas.isEmpty()) {
             Toast.makeText(getContext(), "É necessário escolher no minimo 1 Proteina.", Toast.LENGTH_SHORT).show();
         } else if (vegetaisSelecionadas.isEmpty()) {
             Toast.makeText(getContext(), "É necessário escolher no minimo 1 Vegetal.", Toast.LENGTH_SHORT).show();
-        } else if (qtdRefeicoes == 0) {
+        } else if (qtdRefeicoesSelecionada.length() == 0) {
             Toast.makeText(getContext(), "É necessário escolher a quantidade de refeiçoes que deseja fazer.", Toast.LENGTH_SHORT).show();
         }
     }
@@ -208,7 +207,7 @@ public class Alimentos extends Fragment {
         chipGroupProteina = view.findViewById(R.id.chip_group_proteinas);
         chipGroupFruta = view.findViewById(R.id.chip_group_frutas);
         chipGroupVegetais = view.findViewById(R.id.chip_group_vegetais);
-        refeicoesSlider = view.findViewById(R.id.slider_qtd_refeicoes);
+        radioGroupRefeicoes = view.findViewById(R.id.radioGroupRefeicoes);
         montarDieta = view.findViewById(R.id.irPaginaDieta);
     }
 }

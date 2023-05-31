@@ -134,19 +134,46 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chip_group_vegetais" />
 
-        <com.google.android.material.slider.Slider
-            android:id="@+id/slider_qtd_refeicoes"
-            android:layout_width="300dp"
-            android:layout_height="40dp"
-            android:stepSize="1"
-            android:valueFrom="1"
-            android:valueTo="5"
+        <RadioGroup
+            android:id="@+id/radioGroupRefeicoes"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_qtd_refeicoes"
-            app:thumbColor="@color/white"
-            app:thumbRadius="10dp"
-            app:trackColor="@color/white" />
+            app:layout_constraintTop_toBottomOf="@+id/text_qtd_refeicoes">
+
+            <RadioButton
+                android:id="@+id/radio_refeicoes_1"
+                style="@style/texto_radio_button"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="@string/_1"/>
+            <RadioButton
+                android:id="@+id/radio_refeicoes_2"
+                style="@style/texto_radio_button"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="@string/_2"/>
+            <RadioButton
+                android:id="@+id/radio_refeicoes_3"
+                style="@style/texto_radio_button"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="@string/_3"/>
+            <RadioButton
+                android:id="@+id/radio_refeicoes_4"
+                style="@style/texto_radio_button"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="@string/_4"/>
+            <RadioButton
+                android:id="@+id/radio_refeicoes_5"
+                style="@style/texto_radio_button"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="@string/_5"/>
+        </RadioGroup>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/irPaginaDieta"
@@ -160,9 +187,9 @@
             android:text="@string/gerar_dieta"
             android:fontFamily="@font/font_dietola"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@id/slider_qtd_refeicoes"
-            app:layout_constraintStart_toStartOf="@id/slider_qtd_refeicoes"
-            app:layout_constraintTop_toBottomOf="@id/slider_qtd_refeicoes" />
+            app:layout_constraintEnd_toEndOf="@id/radioGroupRefeicoes"
+            app:layout_constraintStart_toStartOf="@id/radioGroupRefeicoes"
+            app:layout_constraintTop_toBottomOf="@id/radioGroupRefeicoes" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -57,86 +57,141 @@
                 android:fontFamily="@font/font_dietola"/>
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
+        <LinearLayout
+            android:id="@+id/linear_layout_idade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toggleButton">
+
         <TextView
             android:id="@+id/text_idade"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:gravity="end"
             android:text="@string/idade"
             android:fontFamily="@font/font_dietola"
             android:textColor="@color/white"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toggleButton" />
+            android:layout_marginEnd="16dp"/>
 
-        <com.google.android.material.slider.Slider
+        <TextView
+            android:id="@+id/numero_idade"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:fontFamily="@font/font_dietola"
+            android:textColor="@color/white"
+            android:textSize="20sp"/>
+
+        </LinearLayout>
+
+        <SeekBar
             android:id="@+id/slider_idade"
+            style="@style/CustomSlider"
             android:layout_width="300dp"
             android:layout_height="40dp"
-            android:stepSize="1"
-            android:valueFrom="10"
-            android:valueTo="80"
+            android:progress="10"
+            android:max="100"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.504"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linear_layout_idade"/>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_altura"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_idade"
-            app:thumbColor="@color/white"
-            app:thumbRadius="10dp"
-            app:trackColor="@color/white" />
+            app:layout_constraintTop_toBottomOf="@+id/slider_idade">
 
         <TextView
             android:id="@+id/text_altura"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:gravity="end"
             android:text="@string/altura"
             android:fontFamily="@font/font_dietola"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/slider_idade" />
+            android:textSize="20sp" />
 
-        <com.google.android.material.slider.Slider
+            <TextView
+                android:id="@+id/numero_altura"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/font_dietola"
+                android:textColor="@color/white"
+                android:textSize="20sp"/>
+
+        </LinearLayout>
+
+        <SeekBar
             android:id="@+id/slider_altura"
+            style="@style/CustomSlider"
             android:layout_width="300dp"
             android:layout_height="40dp"
-            android:stepSize="1"
-            android:valueFrom="20"
-            android:valueTo="300"
+            android:progress="100"
+            android:max="300"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_altura"
-            app:thumbColor="@color/white"
-            app:thumbRadius="10dp"
-            app:trackColor="@color/white" />
+            app:layout_constraintTop_toBottomOf="@+id/linear_layout_altura"/>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_peso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/slider_altura">
 
         <TextView
             android:id="@+id/text_peso"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:gravity="end"
             android:text="@string/peso"
             android:fontFamily="@font/font_dietola"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/slider_altura" />
+            android:textSize="20sp"/>
 
-        <com.google.android.material.slider.Slider
+            <TextView
+                android:id="@+id/numero_peso"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/font_dietola"
+                android:textColor="@color/white"
+                android:textSize="20sp"/>
+
+        </LinearLayout>
+
+        <SeekBar
             android:id="@+id/slider_peso"
+            style="@style/CustomSlider"
             android:layout_width="300dp"
             android:layout_height="40dp"
-            android:stepSize="1"
-            android:valueFrom="20"
-            android:valueTo="300"
+            android:progress="20"
+            android:max="300"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_peso"
-            app:thumbColor="@color/white"
-            app:thumbRadius="10dp"
-            app:trackColor="@color/white" />
+            app:layout_constraintTop_toBottomOf="@+id/linear_layout_peso"/>
 
         <TextView
             android:id="@+id/text_atividade"
@@ -146,6 +201,7 @@
             android:fontFamily="@font/font_dietola"
             android:textColor="@color/white"
             android:textSize="20sp"
+            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/slider_peso" />
@@ -163,58 +219,47 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_atividade" />
 
-        <com.google.android.material.slider.Slider
-            android:id="@+id/slider_grau_atividade"
-            android:layout_width="300dp"
-            android:layout_height="40dp"
-            android:stepSize="1"
-            android:valueFrom="1"
-            android:valueTo="5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_atividade_grau"
-            app:thumbColor="@color/white"
-            app:thumbRadius="10dp"
-            app:trackColor="@color/white" />
-
-        <TextView
-            android:id="@+id/text_estado_atual"
+        <RadioGroup
+            android:id="@+id/radioGroupAtividade"
+            android:checkedButton="@+id/radio_button_1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/estado_atual"
-            android:fontFamily="@font/font_dietola"
-            android:textColor="@color/white"
-            android:textSize="20sp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/slider_grau_atividade" />
+            app:layout_constraintTop_toBottomOf="@+id/text_atividade_grau">
 
-        <TextView
-            android:id="@+id/text_estado_atual_grau"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/estado_atual_grau"
-            android:fontFamily="@font/font_dietola"
-            android:textColor="@color/white"
-            android:textSize="11sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_estado_atual" />
-
-        <com.google.android.material.slider.Slider
-            android:id="@+id/slider_estado_atual"
-            android:layout_width="300dp"
-            android:layout_height="40dp"
-            android:stepSize="1"
-            android:valueFrom="1"
-            android:valueTo="4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_estado_atual_grau"
-            app:thumbColor="@color/white"
-            app:thumbRadius="10dp"
-            app:trackColor="@color/white" />
+            <RadioButton
+                android:id="@+id/radio_atividade_1"
+                style="@style/texto_radio_button"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="@string/_1"/>
+            <RadioButton
+                android:id="@+id/radio_atividade_2"
+                style="@style/texto_radio_button"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="@string/_2"/>
+            <RadioButton
+                android:id="@+id/radio_atividade_3"
+                style="@style/texto_radio_button"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="@string/_3"/>
+            <RadioButton
+                android:id="@+id/radio_atividade_4"
+                style="@style/texto_radio_button"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="@string/_4"/>
+            <RadioButton
+                android:id="@+id/radio_atividade_5"
+                style="@style/texto_radio_button"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="@string/_5"/>
+        </RadioGroup>
 
         <LinearLayout
             android:id="@+id/linearLayoutValores"
@@ -223,7 +268,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center_horizontal"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/slider_estado_atual">
+            app:layout_constraintTop_toBottomOf="@+id/radioGroupAtividade">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/botao_resultado"

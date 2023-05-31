@@ -17,9 +17,9 @@
     <string name="preencha_campos">PREENCHA OS CAMPOS</string>
     <string name="masculino">MASCULINO</string>
     <string name="feminino">FEMININO</string>
-    <string name="idade">IDADE</string>
-    <string name="altura">ALTURA EM CENTIMETROS</string>
-    <string name="peso">PESO</string>
+    <string name="idade">IDADE:</string>
+    <string name="altura">ALTURA EM CENTIMETROS:</string>
+    <string name="peso">PESO:</string>
     <string name="resultado">CALCULAR TDEE</string>
     <string name="emagrecimento">EMAGRECIMENTO</string>
     <string name="ganhoDePeso">Ganho de Peso</string>
@@ -39,4 +39,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="legumes">LEGUMES</string>
     <string name="caf_da_manh">CAFÉ DA MANHÃ</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
 </resources>

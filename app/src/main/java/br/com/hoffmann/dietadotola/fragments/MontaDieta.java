@@ -1,5 +1,6 @@
 package br.com.hoffmann.dietadotola.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,6 +65,7 @@ public class MontaDieta extends Fragment {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,7 +74,6 @@ public class MontaDieta extends Fragment {
         View view = inflater.inflate(R.layout.fragment_monta_dieta, container, false);
         recyclerViewDietas = view.findViewById(R.id.recicleViewDietas);
         recyclerViewFrutas = view.findViewById(R.id.recicleViewFrutas);
-
 
         setupRecyclerViewFrutas();
         viewModel.getListaDeFrutasPorRefeicao(listFrutasSelecionadas).observe(getViewLifecycleOwner(), frutasCalculadas -> {

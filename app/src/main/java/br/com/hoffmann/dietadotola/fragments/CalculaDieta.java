@@ -1,11 +1,19 @@
 package br.com.hoffmann.dietadotola.fragments;
 
+import static com.google.android.material.slider.LabelFormatter.LABEL_FLOATING;
+import static com.google.android.material.slider.LabelFormatter.LABEL_GONE;
+import static com.google.android.material.slider.LabelFormatter.LABEL_VISIBLE;
+import static com.google.android.material.slider.LabelFormatter.LABEL_WITHIN_BOUNDS;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,11 +31,13 @@ public class CalculaDieta extends Fragment {
 
     private Button masc, fem, perdePeso, resultado, ganhaPeso, proximaPagina;
     private int idade, taxaBasalFinal, tdee;
-    private double altura, peso, grauAtividade, estadoAtual, proteina, carboidrato;
+    private double altura, peso;
     private String sexo;
-    private TextView resultadoCalculoBasal, objetivoText;
+    private TextView resultadoCalculoBasal, objetivoText, numeroIdade, numeroAltura, numeroPeso;
     private MaterialButtonToggleGroup toggleButtonObjetivo, toggleGroup;
-    private Slider idadeSlider, alturaSlider, pesoSlider, grauAtividadeSlider, estadoAtualSlider;
+    private SeekBar idadeSlider, alturaSlider, pesoSlider;
+    private RadioGroup radioGroupAtividade;
+    private int atividadeSelecionada;
 
     public CalculaDieta() {
     }
@@ -89,66 +99,67 @@ public class CalculaDieta extends Fragment {
             fragmentTransaction.commit();
         });
 
-        idadeSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
+        idadeSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onStartTrackingTouch(@NonNull Slider slider) {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                numeroIdade.setText(String.valueOf(progress));
             }
 
             @Override
-            public void onStopTrackingTouch(@NonNull Slider slider) {
-                idade = (int) slider.getValue();
-            }
-        });
+            public void onStartTrackingTouch(SeekBar seekBar) {
 
-        alturaSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
-            @Override
-            public void onStartTrackingTouch(@NonNull Slider slider) {
             }
 
             @Override
-            public void onStopTrackingTouch(@NonNull Slider slider) {
-                altura = slider.getValue();
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                idade = (int) seekBar.getProgress();
+                numeroIdade.setText(String.valueOf(idade));
             }
         });
 
-        pesoSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
+        alturaSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onStartTrackingTouch(@NonNull Slider slider) {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                numeroAltura.setText(String.valueOf(progress));
             }
 
             @Override
-            public void onStopTrackingTouch(@NonNull Slider slider) {
-                peso = slider.getValue();
-            }
-        });
+            public void onStartTrackingTouch(SeekBar seekBar) {
 
-        estadoAtualSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
-            @Override
-            public void onStartTrackingTouch(@NonNull Slider slider) {
             }
 
             @Override
-            public void onStopTrackingTouch(@NonNull Slider slider) {
-                estadoAtual = slider.getValue();
-                if (estadoAtual != 0) {
-                    resultado.setVisibility(View.VISIBLE);
-                }
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                altura = (int) seekBar.getProgress();
+                numeroAltura.setText(String.valueOf(altura));
             }
         });
 
-        grauAtividadeSlider.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
+        pesoSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onStartTrackingTouch(@NonNull Slider slider) {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                numeroPeso.setText(String.valueOf(progress));
             }
 
             @Override
-            public void onStopTrackingTouch(@NonNull Slider slider) {
-                grauAtividade = slider.getValue();
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                peso = (int) seekBar.getProgress();
+                numeroPeso.setText(String.valueOf(peso));
             }
         });
 
+        if (radioGroupAtividade.getCheckedRadioButtonId() != -1) {
+            resultado.setVisibility(View.VISIBLE);
+        }
+
+        atividadeSelecionada = radioGroupAtividade.getCheckedRadioButtonId();
         resultado.setOnClickListener(v -> {
-            tdee = calcularTDEE(peso, altura, idade, sexo, grauAtividade);
+            tdee = calcularTDEE(peso, altura, idade, sexo, atividadeSelecionada);
             resultadoCalculoBasal.setText(String.format("%s Kcal", tdee));
             if (resultadoCalculoBasal.getText() != null) {
                 objetivoText.setVisibility(View.VISIBLE);
@@ -160,23 +171,6 @@ public class CalculaDieta extends Fragment {
         return view;
     }
 
-    private boolean validaCampos() {
-        if (sexo.isEmpty()) {
-            Toast.makeText(getContext(), "Preencha sua sexualidade", Toast.LENGTH_SHORT).show();
-        } else if (idade == 0) {
-            Toast.makeText(getContext(), "Preencha sua idade", Toast.LENGTH_SHORT).show();
-        } else if (altura == 0) {
-            Toast.makeText(getContext(), "Preencha sua altura", Toast.LENGTH_SHORT).show();
-        } else if (peso == 0) {
-            Toast.makeText(getContext(), "Preencha seu peso", Toast.LENGTH_SHORT).show();
-        } else if (grauAtividade == 0) {
-            Toast.makeText(getContext(), "Preencha seu nivel de atividade-física", Toast.LENGTH_SHORT).show();
-        } else if (estadoAtual == 0) {
-            Toast.makeText(getContext(), "Preencha seu estado-atual", Toast.LENGTH_SHORT).show();
-        }
-        return false;
-    }
-
     private void iniciaComponentes(View view) {
         toggleGroup = view.findViewById(R.id.toggleButton);
         resultado = view.findViewById(R.id.botao_resultado);
@@ -184,8 +178,7 @@ public class CalculaDieta extends Fragment {
         idadeSlider = view.findViewById(R.id.slider_idade);
         alturaSlider = view.findViewById(R.id.slider_altura);
         pesoSlider = view.findViewById(R.id.slider_peso);
-        estadoAtualSlider = view.findViewById(R.id.slider_estado_atual);
-        grauAtividadeSlider = view.findViewById(R.id.slider_grau_atividade);
+        radioGroupAtividade = view.findViewById(R.id.radioGroupAtividade);
         masc = view.findViewById(R.id.masculino);
         fem = view.findViewById(R.id.feminino);
         ganhaPeso = view.findViewById(R.id.ganhoDePeso);
@@ -193,6 +186,9 @@ public class CalculaDieta extends Fragment {
         toggleButtonObjetivo = view.findViewById(R.id.toggleButtonObjetivo);
         objetivoText = view.findViewById(R.id.text_objetivo);
         proximaPagina = view.findViewById(R.id.proximaPagina);
+        numeroIdade = view.findViewById(R.id.numero_idade);
+        numeroAltura = view.findViewById(R.id.numero_altura);
+        numeroPeso = view.findViewById(R.id.numero_peso);
     }
 
     private void setColor(Button button, int bgColor, int textColor) {
@@ -228,7 +224,6 @@ public class CalculaDieta extends Fragment {
                 Log.d("atividade_fisica", "Atividade física inválida.");
                 break;
         }
-
         return (int) tdee;
     }
 

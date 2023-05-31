@@ -1,0 +1,18 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF" />
+            <!-- Defina a altura desejada da linha da SeekBar (por exemplo, 4dp) -->
+            <size android:height="1dp" />
+        </shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape android:shape="rectangle">
+                <solid android:color="@color/white" />
+                <!-- Defina a altura desejada da linha da SeekBar (por exemplo, 4dp) -->
+                <size android:height="1dp" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>
