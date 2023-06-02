@@ -5,17 +5,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +49,7 @@ public class MontaDieta extends Fragment {
     private List<Frutas> listFrutasSelecionadas;
     private List<Vegetais> listVegetaisSelecionadas;
     private TextView textoAgua;
+    private Button botaoReload;
 
     public MontaDieta() {
     }
@@ -73,7 +73,7 @@ public class MontaDieta extends Fragment {
         }
     }
 
-    @SuppressLint({"NotifyDataSetChanged", "DefaultLocale"})
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -82,7 +82,19 @@ public class MontaDieta extends Fragment {
         View view = inflater.inflate(R.layout.fragment_monta_dieta, container, false);
         recyclerViewDietas = view.findViewById(R.id.recicleViewDietas);
         recyclerViewFrutas = view.findViewById(R.id.recicleViewFrutas);
+        textoAgua = view.findViewById(R.id.texto_agua);
+        botaoReload = view.findViewById(R.id.botao_reload);
 
+        criaLayout();
+
+
+        botaoReload.setOnClickListener(v -> criaLayout());
+
+        return view;
+    }
+
+    @SuppressLint("DefaultLocale")
+    private void criaLayout() {
         setupRecyclerViewFrutas();
         viewModel.getListaDeFrutasPorRefeicao(listFrutasSelecionadas).observe(getViewLifecycleOwner(), frutasCalculadas -> {
             frutaAdapter.setFrutasList(frutasCalculadas);
@@ -106,12 +118,8 @@ public class MontaDieta extends Fragment {
             montaDietaAdapter.setVegetaisList(vegetaisCalculados);
             montaDietaAdapter.notifyDataSetChanged();
         });
-        textoAgua = view.findViewById(R.id.texto_agua);
 
         textoAgua.setText(String.format("Você deve beber %.1f litros de água por dia.", formataNumero()));
-
-
-        return view;
     }
 
     private double formataNumero() {
